@@ -1,4 +1,4 @@
-package sunshare;
+package sunshare.entities;
 
 public class User {
     private String name;
