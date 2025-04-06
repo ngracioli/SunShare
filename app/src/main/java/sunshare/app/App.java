@@ -1,6 +1,13 @@
-package sunshare;
+package sunshare.app;
 
 import java.util.Scanner;
+
+import org.fusesource.jansi.internal.JansiLoader;
+
+import sunshare.entities.Address;
+import sunshare.entities.Document;
+import sunshare.entities.User;
+import sunshare.services.AuthService;
 
 public class App {
     private static void timerConsole(int time) {

@@ -1,7 +1,11 @@
-package sunshare;
+package sunshare.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import sunshare.entities.Address;
+import sunshare.entities.Document;
+import sunshare.entities.User;
 
 public class AuthService {
 
