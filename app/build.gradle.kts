@@ -8,7 +8,11 @@ repositories {
 }
 
 dependencies {
+    // Jackson
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+
+    // Jansi
     implementation("org.fusesource.jansi:jansi:2.4.1")
 }
 
