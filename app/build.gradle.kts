@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     // Jackson
+    implementation("com.fasterxml.jackson.core:jackson-annotations:3.0-rc2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
 
