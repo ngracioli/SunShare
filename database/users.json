@@ -1,0 +1,50 @@
+[
+    {
+        "name": "User1",
+        "email": "user1@example.com",
+        "password": "password1",
+        "address": {
+            "state": "State1",
+            "city": "City1",
+            "neighborhood": "Neighborhood1",
+            "street": "Street1",
+            "cep": "11111-111"
+        },
+        "document": {
+            "documentType": "CPF",
+            "document": "111.111.111-11"
+        }
+    },
+    {
+        "name": "User2",
+        "email": "user2@example.com",
+        "password": "password2",
+        "address": {
+            "state": "State2",
+            "city": "City2",
+            "neighborhood": "Neighborhood2",
+            "street": "Street2",
+            "cep": "22222-222"
+        },
+        "document": {
+            "documentType": "CPF",
+            "document": "222.222.222-22"
+        }
+    },
+    {
+        "name": "User3",
+        "email": "user3@example.com",
+        "password": "password3",
+        "address": {
+            "state": "State3",
+            "city": "City3",
+            "neighborhood": "Neighborhood3",
+            "street": "Street3",
+            "cep": "33333-333"
+        },
+        "document": {
+            "documentType": "CPF",
+            "document": "333.333.333-33"
+        }
+    }
+]
