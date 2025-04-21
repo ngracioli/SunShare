@@ -1,5 +1,8 @@
 package sunshare.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
     private String name;
     private String email;
@@ -7,7 +10,13 @@ public class User {
     private Address address;
     private Document document;
 
-    public User(String name, String email, String password, Address address, Document document) {
+    @JsonCreator
+    public User(
+            @JsonProperty("name") String name,
+            @JsonProperty("email") String email,
+            @JsonProperty("password") String password,
+            @JsonProperty("address") Address address,
+            @JsonProperty("document") Document document) {
         this.name = name;
         this.email = email;
         this.password = password;

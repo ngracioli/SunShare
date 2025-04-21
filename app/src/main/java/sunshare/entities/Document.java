@@ -1,11 +1,17 @@
 package sunshare.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Document {
 
     private String documentType;
     private String document;
 
-    public Document(String documentType, String document) {
+    @JsonCreator
+    public Document(
+            @JsonProperty("documentType") String documentType,
+            @JsonProperty("document") String document) {
         this.documentType = documentType;
         this.document = document;
     }

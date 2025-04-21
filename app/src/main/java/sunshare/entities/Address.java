@@ -1,5 +1,8 @@
 package sunshare.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Address {
     private String state;
     private String city;
@@ -7,7 +10,13 @@ public class Address {
     private String street;
     private String cep;
 
-    public Address(String state, String city, String neighborhood, String street, String cep) {
+    @JsonCreator
+    public Address(
+            @JsonProperty("state") String state,
+            @JsonProperty("city") String city,
+            @JsonProperty("neighborhood") String neighborhood,
+            @JsonProperty("street") String street,
+            @JsonProperty("cep") String cep) {
         this.state = state;
         this.city = city;
         this.neighborhood = neighborhood;
