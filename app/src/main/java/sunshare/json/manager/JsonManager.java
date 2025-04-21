@@ -34,9 +34,10 @@ public class JsonManager {
         }
     }
 
-    public <T> void update(Class<T> clazz, Matcher<T> matcher, Updater<T> updater) {
+    public <T> ArrayList<T> update(Class<T> clazz, Matcher<T> matcher, Updater<T> updater) {
         final JsonNode root = loadJsonRoot();
         final ArrayNode nodes = (ArrayNode) root;
+        final ArrayList<T> updatedObjects = new ArrayList<>();
 
         for (int i = 0; i < nodes.size(); i++) {
             JsonNode current = nodes.get(i);
@@ -47,6 +48,7 @@ public class JsonManager {
                 if (matcher.assertion(object)) {
                     final T updatedObject = updater.update(object);
                     final JsonNode updatedNode = objectMapper.valueToTree(updatedObject);
+                    updatedObjects.add(updatedObject);
                     nodes.set(i, updatedNode);
                 }
             } catch (JsonProcessingException e) {
@@ -55,6 +57,7 @@ public class JsonManager {
         }
 
         writeJson(nodes);
+        return updatedObjects;
     }
 
     public <T> void delete(Class<T> clazz, Matcher<T> matcher) {
