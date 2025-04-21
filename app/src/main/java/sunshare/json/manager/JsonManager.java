@@ -3,6 +3,7 @@ package sunshare.json.manager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
@@ -29,6 +30,25 @@ public class JsonManager {
         writeJson(nodes);
 
         return fromJsonNode(clazz, value);
+    }
+
+    public <T> ArrayList<T> insert(Class<T> clazz, List<T> values) {
+        final var root = loadJsonRoot();
+        if (root == null) {
+            return null;
+        }
+
+        final var nodes = (ArrayNode) root;
+        final ArrayList<T> insertedObjects = new ArrayList<>();
+
+        for (final T value : values) {
+            final JsonNode node = toJsonNode(values);
+            insertedObjects.add(value);
+            nodes.add(node);
+        }
+        writeJson(nodes);
+
+        return insertedObjects;
     }
 
     public <T> ArrayList<T> update(Class<T> clazz, Matcher<T> matcher, Updater<T> updater) {
