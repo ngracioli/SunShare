@@ -42,7 +42,7 @@ public class JsonManager {
         final ArrayList<T> insertedObjects = new ArrayList<>();
 
         for (final T value : values) {
-            final JsonNode node = toJsonNode(values);
+            final JsonNode node = toJsonNode(value);
             insertedObjects.add(value);
             nodes.add(node);
         }
