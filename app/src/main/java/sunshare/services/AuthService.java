@@ -9,20 +9,16 @@ import sunshare.entities.User;
 
 public class AuthService {
 
-    private ArrayList<User> registeredUsers = new ArrayList<User>(Arrays.asList(
-        new User("User1", "user1@example.com", "password1",
-            new Address("State1", "City1", "Neighborhood1", "Street1", "11111-111"),
-            new Document("CPF", "111.111.111-11")),
-        new User("User2", "user2@example.com", "password2",
-            new Address("State2", "City2", "Neighborhood2", "Street2", "22222-222"),
-            new Document("CPF", "222.222.222-22")),
-        new User("User3", "user3@example.com", "password3",
-            new Address("State3", "City3", "Neighborhood3", "Street3", "33333-333"),
-            new Document("CPF", "333.333.333-33"))
-    ));
+    private ArrayList<User> registeredUsers = new ArrayList<>(Arrays.asList(
+            new User("User1", "user1@example.com", "password1",
+                    new Address("State1", "City1", "Neighborhood1", "Street1", "11111-111")),
+            new User("User2", "user2@example.com", "password2",
+                    new Address("State2", "City2", "Neighborhood2", "Street2", "22222-222")),
+            new User("User3", "user3@example.com", "password3",
+                    new Address("State3", "City3", "Neighborhood3", "Street3", "33333-333"))));
 
     public User register(String name, String email, String password, Address address, Document document) {
-        User newUser = new User(name, email, password, address, document);
+        User newUser = new User(name, email, password, address);
         registeredUsers.add(newUser);
         return newUser;
     }

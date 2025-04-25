@@ -27,10 +27,10 @@ public class Address {
     public String formatAdress() {
         StringBuilder str = new StringBuilder();
         str.append("Estado: " + state + "\n");
-        str.append("Cidade: " + city  + "\n");
-        str.append("Bairro: " + neighborhood  + "\n");
-        str.append("Rua: " + street  + "\n");
-        str.append("CEP: " + cep  + "\n");
+        str.append("Cidade: " + city + "\n");
+        str.append("Bairro: " + neighborhood + "\n");
+        str.append("Rua: " + street + "\n");
+        str.append("CEP: " + cep + "\n");
 
         return str.toString();
     }

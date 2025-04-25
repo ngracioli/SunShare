@@ -8,20 +8,17 @@ public class User {
     private String email;
     private String password;
     private Address address;
-    private Document document;
 
     @JsonCreator
     public User(
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
-            @JsonProperty("address") Address address,
-            @JsonProperty("document") Document document) {
+            @JsonProperty("address") Address address) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
-        this.document = document;
     }
 
     public String getName() {
@@ -54,13 +51,5 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
     }
 }
