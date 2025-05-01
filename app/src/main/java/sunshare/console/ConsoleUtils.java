@@ -20,6 +20,10 @@ public class ConsoleUtils {
         System.out.println(ansi().fgBrightCyan().a(option).reset());
     }
 
+    public static void printSuccess(String message) {
+        System.out.println(ansi().fgBrightGreen().bold().a(message).reset());
+    }
+
     public static void printError(String message) {
         System.out.println(ansi().fgBrightRed().bold().a(message).reset());
     }
@@ -48,5 +52,11 @@ public class ConsoleUtils {
         } catch (Exception e) {
             System.out.println("Erro ao limpar o console");
         }
+    }
+
+    public static void exit() {
+        ConsoleUtils.printExit("Saindo...");
+        ConsoleUtils.timerConsole(2000);
+        System.exit(0);
     }
 }
