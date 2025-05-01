@@ -2,35 +2,52 @@ package sunshare.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 import sunshare.entities.Address;
 import sunshare.entities.Document;
 import sunshare.entities.User;
+import sunshare.entities.Buyer;
+import sunshare.entities.Supplier;
+import sunshare.json.manager.JsonsFiles;
+import sunshare.json.manager.JsonManager;
 
 public class AuthService {
 
-    private ArrayList<User> registeredUsers = new ArrayList<>(Arrays.asList(
-            new User("User1", "user1@example.com", "password1",
-                    new Address("State1", "City1", "Neighborhood1", "Street1", "11111-111")),
-            new User("User2", "user2@example.com", "password2",
-                    new Address("State2", "City2", "Neighborhood2", "Street2", "22222-222")),
-            new User("User3", "user3@example.com", "password3",
-                    new Address("State3", "City3", "Neighborhood3", "Street3", "33333-333"))));
+    private final JsonManager jsonManager;
 
-    public User register(String name, String email, String password, Address address, Document document) {
-        User newUser = new User(name, email, password, address);
-        registeredUsers.add(newUser);
-        return newUser;
+    public AuthService() {
+        this.jsonManager = new JsonManager(JsonsFiles.users);
     }
 
-    public User login(String email, String senha) {
-        for (User user : registeredUsers) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(senha)) {
-                return user;
-            }
+    public Buyer registerBuyer(String name, String email, String password, Address address, Document document) {
+        final User user = new Buyer(UUID.randomUUID().toString(), name, email, password, address, document);
+
+        return jsonManager.insert(Buyer.class, jsonManager.toJsonNode(user));
+    }
+
+    public Supplier registerSupplier(String name, String email, String password, Address address, Document document) {
+        final Supplier user = new Supplier(UUID.randomUUID().toString(), name, email, password, address, document);
+
+        return jsonManager.insert(Supplier.class, jsonManager.toJsonNode(user));
+    }
+
+    public User login(String email, String password) {
+        final ArrayList<User> result = jsonManager.select(User.class, user -> {
+            return user.getEmail().equals(email) && user.getPassword().equals(password);
+        });
+
+        if (result.size() == 0) {
+            return null;
         }
 
-        return null;
+        final User user = result.get(0);
+
+        if (user.isSupplier()) {
+            return user.toSupplier();
+        }
+
+        return user.toBuyer();
     }
 
 }
