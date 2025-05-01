@@ -18,13 +18,14 @@ public class User {
 
     @JsonCreator
     public User(
+            @JsonProperty("uuid") String uuid,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
             @JsonProperty("isSupplier") boolean isSupplier,
             @JsonProperty("address") Address address,
             @JsonProperty("document") Document document) {
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = uuid;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -88,4 +89,26 @@ public class User {
 	public void setSupplier(boolean isSupplier) {
 		this.isSupplier = isSupplier;
 	}
+
+    @JsonIgnore
+    public Supplier toSupplier() {
+        return new Supplier(
+                this.uuid,
+                this.name,
+                this.email,
+                this.password,
+                this.address,
+                this.document);
+    }
+
+    @JsonIgnore
+    public Buyer toBuyer() {
+        return new Buyer(
+                this.uuid,
+                this.name,
+                this.email,
+                this.password,
+                this.address,
+                this.document);
+    }
 }
