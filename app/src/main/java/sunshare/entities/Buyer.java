@@ -6,11 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Buyer extends User {
     @JsonCreator
     public Buyer(
+            @JsonProperty("uuid") String uuid,
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
             @JsonProperty("address") Address address,
             @JsonProperty("document") Document document) {
-        super(name, email, password, false, address, document);
+        super(uuid, name, email, password, false, address, document);
     }
 }
