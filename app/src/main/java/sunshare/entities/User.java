@@ -1,24 +1,40 @@
 package sunshare.entities;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
+    private String uuid;
     private String name;
     private String email;
     private String password;
+    private boolean isSupplier;
     private Address address;
+    private Document document;
 
     @JsonCreator
     public User(
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
-            @JsonProperty("address") Address address) {
+            @JsonProperty("isSupplier") boolean isSupplier,
+            @JsonProperty("address") Address address,
+            @JsonProperty("document") Document document) {
+        this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.email = email;
         this.password = password;
+        this.isSupplier= isSupplier;
         this.address = address;
+        this.document = document;
+    }
+
+    public String getUuid() {
+        return uuid;
     }
 
     public String getName() {
@@ -52,4 +68,24 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public boolean isSupplier() {
+        return this.isSupplier;
+    }
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public void setSupplier(boolean isSupplier) {
+		this.isSupplier = isSupplier;
+	}
 }
