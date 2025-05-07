@@ -1,3 +1,6 @@
+# Ignore Visual Studio Code settings
+.vscode/
+
 # Ignore Gradle project-specific cache directory
 .gradle
 
