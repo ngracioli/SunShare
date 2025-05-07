@@ -1,11 +1,12 @@
-package sunshare.console.menus;
+package sunshare.console.menus.main;
 
 import java.util.Scanner;
 
-import sunshare.console.ConsoleUtils;
 import sunshare.console.menus.authentication.LoginMenu;
 import sunshare.console.menus.authentication.RegisterMenu;
-import sunshare.entities.User;
+import sunshare.console.menus.profile.ProfileMenu;
+import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.entities.user.User;
 
 public class MainMenu {
     private static boolean exit = false;
@@ -20,9 +21,10 @@ public class MainMenu {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Bem-vindo, " + user.getName() + "!");
         ConsoleUtils.printExit("0. Sair");
-        ConsoleUtils.printOption("1. TESTE PERMISSAO COMPRADOR");
+        ConsoleUtils.printOption("1. Perfil");
+        ConsoleUtils.printOption("2. Anuncios");
         if (user.isSupplier()) {
-            ConsoleUtils.printOption("2. TESTE PERMISSAO VENDEDOR");
+            ConsoleUtils.printOption("3. Criar Oferta");
         }
         System.out.print("Escolha uma opção: ");
         int option = scanner.nextInt();
@@ -34,15 +36,16 @@ public class MainMenu {
                 exit = true;
                 break;
             case 1:
-                ConsoleUtils.printOption("VC É COMPRADOR");
-                ConsoleUtils.timerConsole(2000);
+                ProfileMenu.show(scanner, user);
                 break;
             case 2:
-                if (user.isSupplier()) {
-                    ConsoleUtils.printOption("VC É VENDEDOR");
-                    ConsoleUtils.timerConsole(2000);
-                    break;
-                }
+
+                // case 3:
+                // if (user.isSupplier()) {
+                // ConsoleUtils.printOption("VC É VENDEDOR");
+                // ConsoleUtils.timerConsole(2000);
+                // break;
+                // }
             default:
                 ConsoleUtils.printError("Opção inválida.");
                 ConsoleUtils.timerConsole(2000);

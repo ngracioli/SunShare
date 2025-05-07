@@ -4,12 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Scanner;
 
 import sunshare.app.App;
-import sunshare.console.ConsoleUtils;
-import sunshare.console.menus.MainMenu;
-import sunshare.entities.Address;
-import sunshare.entities.Document;
-import sunshare.entities.DocumentTypes;
-import sunshare.entities.User;
+import sunshare.console.menus.main.MainMenu;
+import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.entities.address.Address;
+import sunshare.entities.document.Document;
+import sunshare.entities.document.DocumentTypes;
+import sunshare.entities.user.User;
 import sunshare.services.AuthService;
 
 public class RegisterMenu {

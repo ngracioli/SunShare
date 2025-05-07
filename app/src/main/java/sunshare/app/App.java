@@ -2,12 +2,13 @@ package sunshare.app;
 
 import java.util.Scanner;
 
-import sunshare.entities.Address;
-import sunshare.entities.Document;
-import sunshare.entities.User;
+import sunshare.entities.address.Address;
+import sunshare.entities.document.Document;
+import sunshare.entities.user.User;
 import sunshare.services.AuthService;
-import sunshare.console.ConsoleUtils;
 import sunshare.console.menus.*;
+import sunshare.console.menus.entry.EntryMenu;
+import sunshare.console.menus.utils.ConsoleUtils;
 
 public class App {
 

@@ -1,4 +1,4 @@
-package sunshare.entities;
+package sunshare.entities.document;
 
 public enum DocumentTypes {
     CPF("CPF"),

@@ -1,4 +1,4 @@
-package sunshare.entities;
+package sunshare.entities.user;
 
 import java.util.UUID;
 
@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import sunshare.entities.address.Address;
+import sunshare.entities.document.Document;
 
 public class User {
     private String uuid;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
-import sunshare.entities.Address;
-import sunshare.entities.Document;
-import sunshare.entities.User;
-import sunshare.entities.Buyer;
-import sunshare.entities.Supplier;
+import sunshare.entities.address.Address;
+import sunshare.entities.document.Document;
+import sunshare.entities.user.Buyer;
+import sunshare.entities.user.Supplier;
+import sunshare.entities.user.User;
 import sunshare.json.manager.JsonsFiles;
 import sunshare.json.manager.JsonManager;
 

@@ -1,7 +1,10 @@
-package sunshare.entities;
+package sunshare.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import sunshare.entities.address.Address;
+import sunshare.entities.document.Document;
 
 public class Buyer extends User {
     @JsonCreator

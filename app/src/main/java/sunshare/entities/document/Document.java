@@ -1,4 +1,4 @@
-package sunshare.entities;
+package sunshare.entities.document;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

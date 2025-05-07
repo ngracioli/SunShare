@@ -1,4 +1,4 @@
-package sunshare.entities;
+package sunshare.entities.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

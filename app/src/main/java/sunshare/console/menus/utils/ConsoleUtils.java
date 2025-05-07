@@ -1,4 +1,4 @@
-package sunshare.console;
+package sunshare.console.menus.utils;
 
 import org.fusesource.jansi.AnsiConsole;
 import static org.fusesource.jansi.Ansi.ansi;

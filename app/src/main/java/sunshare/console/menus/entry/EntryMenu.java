@@ -1,10 +1,11 @@
-package sunshare.console.menus;
+package sunshare.console.menus.entry;
 
 import java.util.Scanner;
-import sunshare.console.ConsoleUtils;
+
 import sunshare.services.AuthService;
 import sunshare.console.menus.authentication.LoginMenu;
 import sunshare.console.menus.authentication.RegisterMenu;
+import sunshare.console.menus.utils.ConsoleUtils;
 
 public class EntryMenu {
     private static boolean exit = false;

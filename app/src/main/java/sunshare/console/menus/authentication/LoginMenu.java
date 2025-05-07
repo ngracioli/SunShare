@@ -1,10 +1,11 @@
 package sunshare.console.menus.authentication;
 
 import java.util.Scanner;
-import sunshare.console.ConsoleUtils;
-import sunshare.console.menus.EntryMenu;
-import sunshare.console.menus.MainMenu;
-import sunshare.entities.User;
+
+import sunshare.console.menus.entry.EntryMenu;
+import sunshare.console.menus.main.MainMenu;
+import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.entities.user.User;
 import sunshare.services.AuthService;
 
 public class LoginMenu {
