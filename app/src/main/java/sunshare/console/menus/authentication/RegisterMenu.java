@@ -1,9 +1,6 @@
 package sunshare.console.menus.authentication;
 
-import java.util.ArrayDeque;
 import java.util.Scanner;
-
-import sunshare.app.App;
 import sunshare.console.menus.main.MainMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.entities.address.Address;
