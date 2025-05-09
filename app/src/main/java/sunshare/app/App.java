@@ -11,6 +11,6 @@ public class App {
         AuthService authService = new AuthService();
         Scanner scanner = new Scanner(System.in);
 
-        EntryMenu.show(scanner, authService);
+        new EntryMenu(scanner, authService);
     }
 }
