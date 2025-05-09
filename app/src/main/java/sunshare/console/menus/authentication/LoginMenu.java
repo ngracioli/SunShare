@@ -9,15 +9,15 @@ import sunshare.entities.user.User;
 import sunshare.services.AuthService;
 
 public class LoginMenu {
-    private static boolean exit = false;
+    private boolean exit = false;
 
-    public static void show(Scanner scanner, AuthService authService) {
+    public LoginMenu(Scanner scanner, AuthService authService) {
         while (!exit) {
             showMenu(scanner, authService);
         }
     }
 
-    public static void showMenu(Scanner scanner, AuthService authService) {
+    public void showMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Login");
         ConsoleUtils.printOption("Digite o e-mail: ");
@@ -30,13 +30,13 @@ public class LoginMenu {
         if (user == null) {
             ConsoleUtils.printError("E-mail ou senha inválidos.");
             ConsoleUtils.timerConsole(2000);
-            EntryMenu.show(scanner, authService);
+            new EntryMenu(scanner, authService);
             return;
         }
 
         ConsoleUtils.printSuccess("Login realizado com sucesso!");
         ConsoleUtils.timerConsole(2000);
         exit = true;
-        MainMenu.show(scanner, user);
+        new MainMenu(scanner, user);
     }
 }

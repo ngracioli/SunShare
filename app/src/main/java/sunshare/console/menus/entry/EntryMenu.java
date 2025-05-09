@@ -8,15 +8,15 @@ import sunshare.console.menus.authentication.RegisterMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 
 public class EntryMenu {
-    private static boolean exit = false;
+    private boolean exit = false;
 
-    public static void show(Scanner scanner, AuthService authService) {
+    public EntryMenu(Scanner scanner, AuthService authService) {
         while (!exit) {
             showMenu(scanner, authService);
         }
     }
 
-    public static void showMenu(Scanner scanner, AuthService authService) {
+    public void showMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Bem-vindo ao SunShare");
         ConsoleUtils.printExit("0. Sair");
@@ -33,10 +33,10 @@ public class EntryMenu {
                 exit = true;
                 break;
             case 1:
-                RegisterMenu.show(scanner, authService);
+                new RegisterMenu(scanner, authService);
                 break;
             case 2:
-                LoginMenu.show(scanner, authService);
+                new LoginMenu(scanner, authService);
                 break;
             default:
                 ConsoleUtils.printError("Opção inválida. Tente novamente.");

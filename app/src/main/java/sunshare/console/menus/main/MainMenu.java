@@ -2,22 +2,21 @@ package sunshare.console.menus.main;
 
 import java.util.Scanner;
 
-import sunshare.console.menus.authentication.LoginMenu;
-import sunshare.console.menus.authentication.RegisterMenu;
+import sunshare.console.menus.ofert.OfertMenu;
 import sunshare.console.menus.profile.ProfileMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.entities.user.User;
 
 public class MainMenu {
-    private static boolean exit = false;
+    private boolean exit = false;
 
-    public static void show(Scanner scanner, User user) {
+    public MainMenu(Scanner scanner, User user) {
         while (!exit) {
             showMenu(scanner, user);
         }
     }
 
-    public static void showMenu(Scanner scanner, User user) {
+    public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Bem-vindo, " + user.getName() + "!");
         ConsoleUtils.printExit("0. Sair");
@@ -36,16 +35,17 @@ public class MainMenu {
                 exit = true;
                 break;
             case 1:
-                ProfileMenu.show(scanner, user);
+                new ProfileMenu(scanner, user);
                 break;
             case 2:
-
-                // case 3:
-                // if (user.isSupplier()) {
-                // ConsoleUtils.printOption("VC É VENDEDOR");
-                // ConsoleUtils.timerConsole(2000);
-                // break;
-                // }
+                new OfertMenu(scanner, user);
+                break;
+            case 3:
+                if (user.isSupplier()) {
+                    ConsoleUtils.printOption("VC É VENDEDOR");
+                    ConsoleUtils.timerConsole(2000);
+                    break;
+                }
             default:
                 ConsoleUtils.printError("Opção inválida.");
                 ConsoleUtils.timerConsole(2000);

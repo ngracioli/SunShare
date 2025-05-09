@@ -10,7 +10,7 @@ import sunshare.entities.user.User;
 import sunshare.services.AuthService;
 
 public class RegisterMenu {
-    public static void show(Scanner scanner, AuthService authService) {
+    public RegisterMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Cadastro de Usuário");
         ConsoleUtils.printOption("Digite o nome: ");
@@ -39,10 +39,10 @@ public class RegisterMenu {
 
         ConsoleUtils.printSuccess("Cadastro realizado com sucesso!");
         ConsoleUtils.timerConsole(2000);
-        MainMenu.show(scanner, user);
+        new MainMenu(scanner, user);
     }
 
-    private static Address readAddress(Scanner scanner) {
+    private Address readAddress(Scanner scanner) {
         ConsoleUtils.printOption("Digite o estado: ");
         String state = scanner.nextLine();
         ConsoleUtils.printOption("Digite a cidade: ");
@@ -57,7 +57,7 @@ public class RegisterMenu {
         return new Address(state, city, neighborhood, street, cep);
     }
 
-    private static Document readDocument(Scanner scanner) {
+    private Document readDocument(Scanner scanner) {
         ConsoleUtils.printOption("(0) CPF ou (1) CNPJ? : ");
         int option = scanner.nextInt();
 
