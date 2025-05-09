@@ -1,7 +1,6 @@
 package sunshare.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 
 import sunshare.entities.address.Address;
