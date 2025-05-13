@@ -1,10 +1,7 @@
 package sunshare.entities.user;
 
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import sunshare.entities.address.Address;
@@ -32,7 +29,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.isSupplier= isSupplier;
+        this.isSupplier = isSupplier;
         this.address = address;
         this.document = document;
     }
@@ -85,13 +82,13 @@ public class User {
         return this.isSupplier;
     }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public void setSupplier(boolean isSupplier) {
-		this.isSupplier = isSupplier;
-	}
+    public void setSupplier(boolean isSupplier) {
+        this.isSupplier = isSupplier;
+    }
 
     @JsonIgnore
     public Supplier toSupplier() {
