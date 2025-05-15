@@ -1,16 +1,16 @@
 package sunshare.app;
 
-import java.util.Scanner;
-
-import sunshare.services.AuthService;
 import sunshare.console.menus.entry.EntryMenu;
+import sunshare.services.AuthService;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) {
-        AuthService authService = new AuthService();
-        Scanner scanner = new Scanner(System.in);
+       final AuthService authService = new AuthService();
+       final Scanner scanner = new Scanner(System.in);
 
-        new EntryMenu(scanner, authService);
+       new EntryMenu(scanner, authService);
     }
 }
