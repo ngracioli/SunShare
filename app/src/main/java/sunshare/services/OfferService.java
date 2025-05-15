@@ -4,35 +4,35 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import sunshare.entities.energy.Energy;
-import sunshare.entities.ofert.Ofert;
-import sunshare.entities.ofert.OfertStatus;
+import sunshare.entities.offer.Offer;
+import sunshare.entities.offer.OfferStatus;
 import sunshare.json.manager.JsonManager;
 import sunshare.json.manager.JsonsFiles;
 
-public class OfertService {
+public class OfferService {
 
     private final JsonManager jsonManager;
 
-    public OfertService() {
-        jsonManager = new JsonManager(JsonsFiles.oferts);
+    public OfferService() {
+        jsonManager = new JsonManager(JsonsFiles.offers);
     }
 
-    public ArrayList<Ofert> getAll() {
-        return jsonManager.select(Ofert.class, o -> true);
+    public ArrayList<Offer> getAll() {
+        return jsonManager.select(Offer.class, o -> true);
     }
 
-    public ArrayList<Ofert> getOpen() {
-        return jsonManager.select(Ofert.class, o -> true);
+    public ArrayList<Offer> getOpen() {
+        return jsonManager.select(Offer.class, o -> true);
     }
 
     public void create(String supplierUuid, Energy energy) {
-        final Ofert ofert = new Ofert(UUID.randomUUID().toString(), supplierUuid, energy, OfertStatus.open);
+        final Offer offer = new Offer(UUID.randomUUID().toString(), supplierUuid, energy, OfferStatus.open);
 
-        jsonManager.insert(Ofert.class, jsonManager.toJsonNode(ofert));
+        jsonManager.insert(Offer.class, jsonManager.toJsonNode(offer));
     }
 
     public void delete(String uuid) {
-        jsonManager.delete(Ofert.class, o -> {
+        jsonManager.delete(Offer.class, o -> {
             return o.getUuid().equals(uuid);
         });
     }
