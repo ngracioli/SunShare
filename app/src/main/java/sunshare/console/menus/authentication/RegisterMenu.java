@@ -13,12 +13,17 @@ public class RegisterMenu {
     public RegisterMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Cadastro de Usuário");
-        ConsoleUtils.printOption("Digite o nome: ");
-        String name = scanner.nextLine();
-        ConsoleUtils.printOption("Digite o e-mail: ");
-        String email = scanner.nextLine();
-        ConsoleUtils.printOption("Digite a senha: ");
-        String password = scanner.nextLine();
+
+        String name = readNonEmptyString(scanner, "Digite o nome: ", "Nome não pode ser vazio.");
+        String email;
+        do {
+            ConsoleUtils.printOption("Digite o e-mail: ");
+            email = scanner.nextLine();
+            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                ConsoleUtils.printError("E-mail inválido.");
+            }
+        } while (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"));
+        String password = readNonEmptyString(scanner, "Digite a senha: ", "Senha não pode ser vazia.");
         Address address = readAddress(scanner);
         Document document = readDocument(scanner);
         ConsoleUtils.printOption("(0) Comprador ou (1) Vendedor? : ");
@@ -42,38 +47,55 @@ public class RegisterMenu {
         new MainMenu(scanner, user);
     }
 
-    private Address readAddress(Scanner scanner) {
-        ConsoleUtils.printOption("Digite o estado: ");
-        String state = scanner.nextLine();
-        ConsoleUtils.printOption("Digite a cidade: ");
-        String city = scanner.nextLine();
-        ConsoleUtils.printOption("Digite o bairro: ");
-        String neighborhood = scanner.nextLine();
-        ConsoleUtils.printOption("Digite a rua: ");
-        String street = scanner.nextLine();
-        ConsoleUtils.printOption("Digite o CEP: ");
-        String cep = scanner.nextLine();
+    private String readNonEmptyString(Scanner scanner, String prompt, String errorMsg) {
+        String value;
+        do {
+            ConsoleUtils.printOption(prompt);
+            value = scanner.nextLine();
+            if (value.isBlank())
+                ConsoleUtils.printError(errorMsg);
+        } while (value.isBlank());
+        return value;
+    }
 
+    private Address readAddress(Scanner scanner) {
+        String state = readNonEmptyString(scanner, "Digite o estado: ", "Estado não pode ser vazio.");
+        String city = readNonEmptyString(scanner, "Digite a cidade: ", "Cidade não pode ser vazia.");
+        String neighborhood = readNonEmptyString(scanner, "Digite o bairro: ", "Bairro não pode ser vazio.");
+        String street = readNonEmptyString(scanner, "Digite a rua: ", "Rua não pode ser vazia.");
+        String cep;
+        do {
+            ConsoleUtils.printOption("Digite o CEP: ");
+            cep = scanner.nextLine();
+            if (!cep.matches("^\\d{5}-?\\d{3}$")) {
+                ConsoleUtils.printError("CEP inválido. Use o formato 00000-000.");
+            }
+        } while (!cep.matches("^\\d{5}-?\\d{3}$"));
         return new Address(state, city, neighborhood, street, cep);
     }
 
     private Document readDocument(Scanner scanner) {
-        ConsoleUtils.printOption("(0) CPF ou (1) CNPJ? : ");
-        int option = scanner.nextInt();
-
-        while (option != 0 && option != 1) {
-            ConsoleUtils.printError("Opção inválida. Tente novamente.");
+        int option;
+        do {
+            ConsoleUtils.printOption("(0) CPF ou (1) CNPJ? : ");
             option = scanner.nextInt();
-        }
-
-        // Clear the newline character left by nextInt()
+            if (option != 0 && option != 1) {
+                ConsoleUtils.printError("Opção inválida. Tente novamente.");
+            }
+        } while (option != 0 && option != 1);
         scanner.nextLine();
-
         final DocumentTypes documentType = DocumentTypes.values()[option];
-
-        ConsoleUtils.printOption("Digite seu " + documentType.type + ": ");
-        String document = scanner.nextLine();
-
+        String document;
+        do {
+            ConsoleUtils.printOption("Digite seu " + documentType.type + ": ");
+            document = scanner.nextLine();
+            if (option == 0 && !document.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
+                ConsoleUtils.printError("CPF inválido. Use 000.000.000-00 ou apenas números.");
+            } else if (option == 1 && !document.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")) {
+                ConsoleUtils.printError("CNPJ inválido. Use 00.000.000/0000-00 ou apenas números.");
+            }
+        } while ((option == 0 && !document.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$"))
+                || (option == 1 && !document.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")));
         return new Document(documentType, document);
     }
 }
