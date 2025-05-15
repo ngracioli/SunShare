@@ -5,14 +5,14 @@ import sunshare.entities.energy.Energy;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Ofert {
+public class Offer {
     private String uuid;
     private String supplierUuid;
     private Energy energy;
     private OfertStatus status;
 
     @JsonCreator
-    public Ofert(
+    public Offer(
             @JsonProperty("uuid") String uuid,
             @JsonProperty("supplier_uuid") String supplierUuid,
             @JsonProperty("energy") Energy energy,

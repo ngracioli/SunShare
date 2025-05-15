@@ -13,7 +13,7 @@ public class OfertService {
 
     private final JsonManager jsonManager;
 
-    OfertService() {
+    public OfertService() {
         jsonManager = new JsonManager(JsonsFiles.oferts);
     }
 

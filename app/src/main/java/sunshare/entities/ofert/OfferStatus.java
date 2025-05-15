@@ -1,6 +1,6 @@
 package sunshare.entities.ofert;
 
-public enum OfertStatus {
+public enum OfferStatus {
     open,
     closed
 }
