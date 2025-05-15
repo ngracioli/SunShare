@@ -6,6 +6,7 @@ import sunshare.services.AuthService;
 import sunshare.console.menus.authentication.LoginMenu;
 import sunshare.console.menus.authentication.RegisterMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.console.menus.utils.InputUtils;
 
 public class EntryMenu {
     private boolean exit = false;
@@ -23,9 +24,7 @@ public class EntryMenu {
         ConsoleUtils.printOption("1. Cadastrar");
         ConsoleUtils.printOption("2. Entrar");
 
-        System.out.print("Escolha uma opção: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0, 1 ou 2.", 0, 1, 2);
 
         switch (option) {
             case 0:
