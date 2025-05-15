@@ -10,6 +10,22 @@ import sunshare.entities.user.User;
 import sunshare.services.AuthService;
 
 public class RegisterMenu {
+    private boolean isValidEmail(String email) {
+        return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    private boolean isValidCep(String cep) {
+        return cep.matches("^\\d{5}-?\\d{3}$");
+    }
+
+    private boolean isValidCPF(String cpf) {
+        return cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$");
+    }
+
+    private boolean isValidCNPJ(String cnpj) {
+        return cnpj.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$");
+    }
+
     public RegisterMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Cadastro de Usuário");
@@ -19,10 +35,10 @@ public class RegisterMenu {
         do {
             ConsoleUtils.printOption("Digite o e-mail: ");
             email = scanner.nextLine();
-            if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            if (!isValidEmail(email)) {
                 ConsoleUtils.printError("E-mail inválido.");
             }
-        } while (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"));
+        } while (!isValidEmail(email));
         String password = readNonEmptyString(scanner, "Digite a senha: ", "Senha não pode ser vazia.");
         Address address = readAddress(scanner);
         Document document = readDocument(scanner);
@@ -67,10 +83,10 @@ public class RegisterMenu {
         do {
             ConsoleUtils.printOption("Digite o CEP: ");
             cep = scanner.nextLine();
-            if (!cep.matches("^\\d{5}-?\\d{3}$")) {
+            if (!isValidCep(cep)) {
                 ConsoleUtils.printError("CEP inválido. Use o formato 00000-000.");
             }
-        } while (!cep.matches("^\\d{5}-?\\d{3}$"));
+        } while (!isValidCep(cep));
         return new Address(state, city, neighborhood, street, cep);
     }
 
@@ -89,13 +105,12 @@ public class RegisterMenu {
         do {
             ConsoleUtils.printOption("Digite seu " + documentType.type + ": ");
             document = scanner.nextLine();
-            if (option == 0 && !document.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
+            if (option == 0 && !isValidCPF(document)) {
                 ConsoleUtils.printError("CPF inválido. Use 000.000.000-00 ou apenas números.");
-            } else if (option == 1 && !document.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")) {
+            } else if (option == 1 && !isValidCNPJ(document)) {
                 ConsoleUtils.printError("CNPJ inválido. Use 00.000.000/0000-00 ou apenas números.");
             }
-        } while ((option == 0 && !document.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$"))
-                || (option == 1 && !document.matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$|^\\d{14}$")));
+        } while ((option == 0 && !isValidCPF(document)) || (option == 1 && !isValidCNPJ(document)));
         return new Document(documentType, document);
     }
 }
