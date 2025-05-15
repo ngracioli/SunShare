@@ -2,7 +2,8 @@ package sunshare.console.menus.main;
 
 import java.util.Scanner;
 
-import sunshare.console.menus.ofert.OfertMenu;
+import sunshare.console.menus.offer.CreateOfferMenu;
+import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.profile.ProfileMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.entities.user.User;
@@ -38,12 +39,11 @@ public class MainMenu {
                 new ProfileMenu(scanner, user);
                 break;
             case 2:
-                new OfertMenu(scanner, user);
+                new OfferMenu(scanner, user);
                 break;
             case 3:
                 if (user.isSupplier()) {
-                    ConsoleUtils.printOption("VC É VENDEDOR");
-                    ConsoleUtils.timerConsole(2000);
+                    new CreateOfferMenu(scanner, user);
                     break;
                 }
             default:
