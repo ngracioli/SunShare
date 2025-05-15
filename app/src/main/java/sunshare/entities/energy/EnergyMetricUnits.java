@@ -8,5 +8,5 @@ public enum EnergyMetricUnits {
         this.symbol = symbol;
     }
 
-    private final String symbol;
+    public final String symbol;
 }
