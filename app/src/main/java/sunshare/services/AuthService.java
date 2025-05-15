@@ -36,11 +36,11 @@ public class AuthService {
             return user.getEmail().equals(email) && user.getPassword().equals(password);
         });
 
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
             return null;
         }
 
-        final User user = result.get(0);
+        final User user = result.getFirst();
 
         if (user.isSupplier()) {
             return user.toSupplier();
