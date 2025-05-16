@@ -9,7 +9,7 @@ public class InputUtils {
         do {
             System.out.println(prompt);
             while (!scanner.hasNextInt()) {
-                System.out.println(errorMsg);
+                ConsoleUtils.printError(errorMsg);
                 scanner.next();
             }
             value = scanner.nextInt();
@@ -19,7 +19,7 @@ public class InputUtils {
                     valid = true;
             }
             if (!valid)
-                System.out.println(errorMsg);
+                ConsoleUtils.printError(errorMsg);
         } while (!valid);
         scanner.nextLine();
         return value;
