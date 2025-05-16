@@ -21,8 +21,8 @@ public class OfferService {
         return jsonManager.select(Offer.class, o -> true);
     }
 
-    public ArrayList<Offer> getOpen() {
-        return jsonManager.select(Offer.class, o -> true);
+    public ArrayList<Offer> getAllFromUser(String userUuid) {
+        return jsonManager.select(Offer.class, o -> o.getSupplierUuid().equals(userUuid));
     }
 
     public void create(String supplierUuid, Energy energy) {
