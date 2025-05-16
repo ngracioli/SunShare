@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import sunshare.console.menus.profile.ProfileMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.console.menus.utils.InputUtils;
 import sunshare.entities.energy.Energy;
 import sunshare.entities.energy.EnergyMetricUnits;
 import sunshare.entities.offer.Offer;
@@ -37,28 +38,6 @@ public class CreateOfferMenu {
         return value;
     }
 
-    private int readIntOption(Scanner scanner, String prompt, String errorMsg, int... validOptions) {
-        int value;
-        boolean valid;
-        do {
-            ConsoleUtils.printOption(prompt);
-            while (!scanner.hasNextInt()) {
-                ConsoleUtils.printError(errorMsg);
-                scanner.next();
-            }
-            value = scanner.nextInt();
-            valid = false;
-            for (int v : validOptions) {
-                if (value == v)
-                    valid = true;
-            }
-            if (!valid)
-                ConsoleUtils.printError(errorMsg);
-        } while (!valid);
-        scanner.nextLine();
-        return value;
-    }
-
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Criar Oferta");
@@ -71,7 +50,7 @@ public class CreateOfferMenu {
             return;
         }
         ConsoleUtils.clearConsole();
-        int metricOption = readIntOption(scanner, "Escolha a unidade de medida: 0 - kW ou 1 - MW",
+        int metricOption = InputUtils.readIntOption(scanner, "Escolha a unidade de medida: 0 - kW ou 1 - MW",
                 "Digite 0 para kW ou 1 para MW.", 0, 1);
         double quantity = readPositiveDouble(scanner, "Digite a quantidade de energia: ",
                 "Quantidade deve ser um número maior que zero.");
