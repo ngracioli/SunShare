@@ -19,6 +19,7 @@ public class ProfileMenu {
 
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
+        ConsoleUtils.printTitle("Perfil");
         ConsoleUtils.printExit("0. Voltar");
         ConsoleUtils.printOption("1. Minha informações");
         ConsoleUtils.printOption("2. Compras");
@@ -31,6 +32,7 @@ public class ProfileMenu {
                 exit = true;
                 break;
             case 1:
+                new InfoMenu(scanner, user);
                 break;
             case 2:
                 new OfferMenu(scanner, user);
