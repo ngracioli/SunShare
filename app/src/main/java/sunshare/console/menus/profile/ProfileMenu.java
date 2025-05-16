@@ -2,9 +2,10 @@ package sunshare.console.menus.profile;
 
 import java.util.Scanner;
 
-import sunshare.console.menus.ofert.OfertMenu;
+import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.profile.infos.InfoMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.console.menus.utils.InputUtils;
 import sunshare.entities.user.User;
 
 public class ProfileMenu {
@@ -24,10 +25,7 @@ public class ProfileMenu {
         if (user.isSupplier()) {
             ConsoleUtils.printOption("3. Vendas");
         }
-        System.out.print("Escolha uma opção: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
-
+        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0, 1, 2 ou 3.", 0, 1, 2, 3);
         switch (option) {
             case 0:
                 exit = true;
@@ -35,7 +33,7 @@ public class ProfileMenu {
             case 1:
                 break;
             case 2:
-                new OfertMenu(scanner, user);
+                new OfferMenu(scanner, user);
                 break;
             case 3:
                 if (user.isSupplier()) {
