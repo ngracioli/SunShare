@@ -5,19 +5,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Proposal {
 
+    private String proposalUuid;
     private String buyerUuid;
     private String supplierUuid;
     private String offerUuid;
 
     @JsonCreator
     public Proposal(
-        @JsonProperty("buyerUuid") String buyerUuid,
-        @JsonProperty("supplierUuid") String supplierUuid,
-        @JsonProperty("offerUuid") String offerUuid
-    ) {
+            @JsonProperty("proposalUuid") String proposalUuid,
+            @JsonProperty("buyerUuid") String buyerUuid,
+            @JsonProperty("supplierUuid") String supplierUuid,
+            @JsonProperty("offerUuid") String offerUuid) {
+        this.proposalUuid = proposalUuid;
         this.buyerUuid = buyerUuid;
         this.supplierUuid = supplierUuid;
         this.offerUuid = offerUuid;
+    }
+
+    public String getProposalUuid() {
+        return proposalUuid;
+    }
+
+    public void setProposalUuid(String proposalUuid) {
+        this.proposalUuid = proposalUuid;
     }
 
     public void setBuyerUuid(String buyerUuid) {
