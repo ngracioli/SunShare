@@ -9,14 +9,10 @@ import sunshare.entities.user.Buyer;
 import sunshare.entities.user.Supplier;
 import sunshare.entities.user.User;
 import sunshare.json.manager.JsonFiles;
-import sunshare.json.manager.JsonManager;
 
-public class AuthService {
-
-    private final JsonManager jsonManager;
-
+public class AuthService extends BaseService {
     public AuthService() {
-        this.jsonManager = new JsonManager(JsonFiles.users);
+        super(JsonFiles.users);
     }
 
     public Buyer registerBuyer(String name, String email, String password, Address address, Document document) {

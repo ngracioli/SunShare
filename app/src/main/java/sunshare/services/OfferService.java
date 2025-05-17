@@ -10,13 +10,11 @@ import sunshare.entities.proposal.Proposal;
 import sunshare.json.manager.JsonManager;
 import sunshare.json.manager.JsonFiles;
 
-public class OfferService {
-
-    private final JsonManager jsonManager;
+public class OfferService extends BaseService {
     private final JsonManager proposalJsonManager;
 
     public OfferService() {
-        jsonManager = new JsonManager(JsonFiles.offers);
+        super(JsonFiles.offers);
         proposalJsonManager = new JsonManager(JsonFiles.proposals);
     }
 
