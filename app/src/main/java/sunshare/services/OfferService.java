@@ -6,15 +6,18 @@ import java.util.UUID;
 import sunshare.entities.energy.Energy;
 import sunshare.entities.offer.Offer;
 import sunshare.entities.offer.OfferStatus;
+import sunshare.entities.proposal.Proposal;
 import sunshare.json.manager.JsonManager;
-import sunshare.json.manager.JsonsFiles;
+import sunshare.json.manager.JsonFiles;
 
 public class OfferService {
 
     private final JsonManager jsonManager;
+    private final JsonManager proposalJsonManager;
 
     public OfferService() {
-        jsonManager = new JsonManager(JsonsFiles.offers);
+        jsonManager = new JsonManager(JsonFiles.offers);
+        proposalJsonManager = new JsonManager(JsonFiles.proposals);
     }
 
     public ArrayList<Offer> getAll() {
@@ -34,6 +37,10 @@ public class OfferService {
     public void delete(String uuid) {
         jsonManager.delete(Offer.class, o -> {
             return o.getUuid().equals(uuid);
+        });
+
+        proposalJsonManager.delete(Proposal.class, p -> {
+            return p.getOfferUuid().equals(uuid);
         });
     }
 
