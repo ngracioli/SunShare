@@ -31,4 +31,9 @@ public class Document {
         this.document = document;
     }
 
+    @Override
+    public String toString() {
+        return "Document [documentType=" + documentType + ", document=" + document + "]";
+    }
+
 }

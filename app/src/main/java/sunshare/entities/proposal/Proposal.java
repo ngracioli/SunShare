@@ -53,4 +53,10 @@ public class Proposal {
     public String getOfferUuid() {
         return offerUuid;
     }
+
+    @Override
+    public String toString() {
+        return "Proposal [proposalUuid=" + proposalUuid + ", buyerUuid=" + buyerUuid + ", supplierUuid=" + supplierUuid
+                + ", offerUuid=" + offerUuid + "]";
+    }
 }

@@ -55,4 +55,9 @@ public class Offer {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Offer [uuid=" + uuid + ", supplierUuid=" + supplierUuid + ", energy=" + energy + ", status=" + status
+                + "]";
+    }
 }

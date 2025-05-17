@@ -75,4 +75,10 @@ public class Address {
         this.cep = cep;
     }
 
+    @Override
+    public String toString() {
+        return "Address [state=" + state + ", city=" + city + ", neighborhood=" + neighborhood + ", street=" + street
+                + ", cep=" + cep + "]";
+    }
+
 }

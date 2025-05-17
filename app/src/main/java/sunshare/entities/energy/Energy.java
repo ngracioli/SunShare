@@ -42,4 +42,9 @@ public class Energy {
         return quantity;
     }
 
+    @Override
+    public String toString() {
+        return "Energy [symbol=" + symbol + ", amount=" + amount + ", quantity=" + quantity + "]";
+    }
+
 }
