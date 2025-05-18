@@ -1,4 +1,4 @@
-package sunshare.console.logo;
+package sunshare.console.ascii;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

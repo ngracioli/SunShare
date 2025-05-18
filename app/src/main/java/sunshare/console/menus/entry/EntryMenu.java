@@ -3,7 +3,7 @@ package sunshare.console.menus.entry;
 import java.util.Scanner;
 
 import sunshare.services.AuthService;
-import sunshare.console.logo.Logo;
+import sunshare.console.ascii.Logo;
 import sunshare.console.menus.authentication.LoginMenu;
 import sunshare.console.menus.authentication.RegisterMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
