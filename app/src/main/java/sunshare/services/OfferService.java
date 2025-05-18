@@ -26,10 +26,10 @@ public class OfferService extends BaseService {
         return jsonManager.select(Offer.class, o -> o.getSupplierUuid().equals(userUuid));
     }
 
-    public void create(String supplierUuid, Energy energy) {
+    public Offer create(String supplierUuid, Energy energy) {
         final Offer offer = new Offer(UUID.randomUUID().toString(), supplierUuid, energy, OfferStatus.open);
 
-        jsonManager.insert(Offer.class, jsonManager.toJsonNode(offer));
+        return jsonManager.insert(Offer.class, jsonManager.toJsonNode(offer));
     }
 
     public void delete(String uuid) {
