@@ -32,7 +32,6 @@ public class MainMenu {
 
         switch (option) {
             case 0:
-                ConsoleUtils.exit();
                 exit = true;
                 break;
             case 1:
