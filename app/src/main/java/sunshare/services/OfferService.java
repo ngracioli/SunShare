@@ -18,8 +18,20 @@ public class OfferService extends BaseService {
         proposalJsonManager = new JsonManager(JsonFiles.proposals);
     }
 
-    public ArrayList<Offer> getAll() {
-        return jsonManager.select(Offer.class, o -> true);
+    public Offer getByUuid(String uuid) {
+        final ArrayList<Offer> result = jsonManager.select(Offer.class, o -> {
+            return o.getUuid().equals(uuid);
+        });
+
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return result.getFirst();
+    }
+
+    public ArrayList<Offer> getAll(OfferStatus status) {
+        return jsonManager.select(Offer.class, o -> o.getStatus() == status);
     }
 
     public ArrayList<Offer> getAllFromUser(String userUuid) {
@@ -27,7 +39,7 @@ public class OfferService extends BaseService {
     }
 
     public Offer create(String supplierUuid, Energy energy) {
-        final Offer offer = new Offer(UUID.randomUUID().toString(), supplierUuid, energy, OfferStatus.open);
+        final Offer offer = new Offer(generateUuid(), supplierUuid, null, energy, OfferStatus.open, 0.0);
 
         return jsonManager.insert(Offer.class, jsonManager.toJsonNode(offer));
     }
