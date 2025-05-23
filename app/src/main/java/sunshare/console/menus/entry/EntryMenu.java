@@ -3,7 +3,7 @@ package sunshare.console.menus.entry;
 import java.util.Scanner;
 
 import sunshare.services.AuthService;
-import sunshare.console.ascii.LogoPriner;
+import sunshare.console.ascii.LogoPrinter;
 import sunshare.console.menus.authentication.LoginMenu;
 import sunshare.console.menus.authentication.RegisterMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
@@ -20,7 +20,7 @@ public class EntryMenu {
 
     public void showMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
-        new LogoPriner();
+        new LogoPrinter();
         ConsoleUtils.printTitle("Bem-vindo ao SunShare");
         ConsoleUtils.printExit("0. Sair");
         ConsoleUtils.printOption("1. Cadastrar");
