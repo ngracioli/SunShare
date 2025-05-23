@@ -28,6 +28,14 @@ public class ConsoleUtils {
         System.out.println(ansi().fgBrightRed().bold().a(message).reset());
     }
 
+    public static void printWaiting(String message) {
+        System.out.println(ansi().fgBrightYellow().bold().a(message).reset());
+    }
+
+    public static void printApproved(String message) {
+        System.out.println(ansi().fgRgb(0, 204, 0).bold().a(message).reset());
+    }
+
     public static void printExit(String message) {
         printError(message);
     }
