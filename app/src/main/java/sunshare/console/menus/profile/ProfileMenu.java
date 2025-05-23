@@ -6,6 +6,8 @@ import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.profile.infos.InfoMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.console.menus.utils.InputUtils;
+import sunshare.console.menus.profile.proposals.ProposalMenu;
+import sunshare.console.menus.profile.proposals.user.UserProposals;
 import sunshare.entities.user.User;
 
 public class ProfileMenu {
@@ -22,11 +24,13 @@ public class ProfileMenu {
         ConsoleUtils.printTitle("Perfil");
         ConsoleUtils.printExit("0. Voltar");
         ConsoleUtils.printOption("1. Minha informações");
-        ConsoleUtils.printOption("2. Compras");
+        ConsoleUtils.printOption("2. Histórico de compras");
+        ConsoleUtils.printOption("3. Propostas");
         if (user.isSupplier()) {
-            ConsoleUtils.printOption("3. Vendas");
+            ConsoleUtils.printOption("4. Vendas efetuadas");
         }
-        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0, 1, 2 ou 3.", 0, 1, 2, 3);
+        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite uma opção válida.", 0, 1, 2, 3,
+                4);
         switch (option) {
             case 0:
                 exit = true;
@@ -38,6 +42,13 @@ public class ProfileMenu {
                 new OfferMenu(scanner, user);
                 break;
             case 3:
+                if (!user.isSupplier()) {
+                    new UserProposals(scanner, user);
+                    return;
+                }
+                new ProposalMenu(scanner, user);
+                break;
+            case 4:
                 if (user.isSupplier()) {
                     ConsoleUtils.printOption("VC É VENDEDOR");
                     ConsoleUtils.timerConsole(2000);
