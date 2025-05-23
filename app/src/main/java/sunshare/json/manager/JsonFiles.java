@@ -5,4 +5,5 @@ public class JsonFiles {
     static final public String users = path + "/database/users.json";
     static final public String offers = path + "/database/offers.json";
     static final public String proposals = path + "/database/proposals.json";
+    static final public String notifications = path + "/database/notifications.json";
 }
