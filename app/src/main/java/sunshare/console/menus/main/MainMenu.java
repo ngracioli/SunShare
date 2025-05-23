@@ -2,6 +2,7 @@ package sunshare.console.menus.main;
 
 import java.util.Scanner;
 
+import sunshare.console.ascii.LogoPrinter;
 import sunshare.console.menus.offer.CreateOfferMenu;
 import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.profile.ProfileMenu;
@@ -19,6 +20,7 @@ public class MainMenu {
 
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
+        new LogoPrinter();
         ConsoleUtils.printTitle("Bem-vindo, " + user.getName() + "!");
         ConsoleUtils.printExit("0. Sair");
         ConsoleUtils.printOption("1. Perfil");
