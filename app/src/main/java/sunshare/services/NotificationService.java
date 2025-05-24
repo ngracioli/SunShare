@@ -10,20 +10,29 @@ public class NotificationService extends BaseService {
         super(JsonFiles.notifications);
     }
 
-    public void setUserNotificationsAsRead(String userUuid) {
-        jsonManager.delete(Notification.class, m -> {
+    public int getQuantityOfNotifications(String userUuid) {
+        final var result = jsonManager.select(Notification.class, m -> {
             return m.getUserUuid().equals(userUuid);
+        });
+
+        return result.size();
+    }
+
+    public void setNotificationsAsRead(String uuid) {
+        jsonManager.delete(Notification.class, m -> {
+            return m.getUuid().equals(uuid);
         });
     }
 
-    public ArrayList<Notification> getNotificationFromUser(String userUuid) {
+    public ArrayList<Notification> getNotificationsFromUser(String userUuid) {
         return jsonManager.select(Notification.class, m -> {
             return m.getUserUuid().equals(userUuid);
         });
     }
 
-    public void createNotification(String userUuid, String message) {
-        final var notification = new Notification(generateUuid(), userUuid, message);
+    public void createNotification(String userUuid, String message, Object... args) {
+        final String formattedMessage = String.format(message, args);
+        final var notification = new Notification(generateUuid(), userUuid, formattedMessage);
 
         jsonManager.insert(Notification.class, jsonManager.toJsonNode(notification));
     }
