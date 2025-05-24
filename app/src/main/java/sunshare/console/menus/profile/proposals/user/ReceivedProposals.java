@@ -79,14 +79,18 @@ public class ReceivedProposals {
                         String confirm = scanner.nextLine();
                         if (!confirm.equalsIgnoreCase("s")) {
                             ConsoleUtils.printError("Operação cancelada.");
+                            ConsoleUtils.timerConsole(2000);
                             return;
                         }
                         proposalService.accept(proposal.getProposalUuid());
                         ConsoleUtils.printSuccess("Proposta aceita com sucesso!");
+                        ConsoleUtils.timerConsole(2000);
                     } else if (response.equalsIgnoreCase("recusar")) {
                         ConsoleUtils.printError("Proposta rejeitada com sucesso!");
+                        ConsoleUtils.timerConsole(2000);
                     } else {
                         ConsoleUtils.printError("Opção inválida.");
+                        ConsoleUtils.timerConsole(2000);
                     }
                 }
                 break;
