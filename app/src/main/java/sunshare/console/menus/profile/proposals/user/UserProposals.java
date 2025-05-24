@@ -45,7 +45,7 @@ public class UserProposals {
                 ConsoleUtils.printOption(proposalInfo);
 
                 final Map<ProposalStatus, String> mapLabels = new HashMap<>();
-                mapLabels.put(ProposalStatus.open, "Aberta");
+                mapLabels.put(ProposalStatus.open, "Pendente");
                 mapLabels.put(ProposalStatus.accepted, "Aceita");
                 mapLabels.put(ProposalStatus.rejected, "Rejeitada");
 
