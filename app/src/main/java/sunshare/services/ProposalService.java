@@ -12,10 +12,12 @@ import sunshare.json.manager.JsonManager;
 
 public class ProposalService extends BaseService {
     private final JsonManager offerJsonManager;
+    private final NotificationService notificationService;
 
     public ProposalService() {
         super(JsonFiles.proposals);
         offerJsonManager = new JsonManager(JsonFiles.offers);
+        notificationService = new NotificationService();
     }
 
     public Proposal create(String buyerUuid, String supplierUuid, String offerUuid, double proposalValue) {
@@ -64,6 +66,7 @@ public class ProposalService extends BaseService {
         offerJsonManager.update(Offer.class, o -> {
             return o.getUuid().equals(proposal.getOfferUuid());
         }, u -> {
+            u.setBuyerUuid(proposal.getBuyerUuid());
             u.setStatus(OfferStatus.sold);
             u.setAcceptedValue(proposal.getProposalValue());
             return u;
