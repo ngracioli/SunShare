@@ -1,7 +1,11 @@
 package sunshare.services;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Date;
 
 import sunshare.entities.offer.Offer;
 import sunshare.entities.offer.OfferStatus;
@@ -16,13 +20,25 @@ public class ProposalService extends BaseService {
 
     public ProposalService() {
         super(JsonFiles.proposals);
-        offerJsonManager = new JsonManager(JsonFiles.offers);
+        offerJsonManager = new JsonManager(JsonFiles.offers.getFile());
         notificationService = new NotificationService();
+    }
+
+    private void sendNotification(String userUuid, String message) {
+        final LocalDateTime now = LocalDateTime.now();
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        final String date = now.format(formatter);
+
+        final String messageWithDate = String.format("%s\n%s", date, message);
+
+        notificationService.createNotification(userUuid, messageWithDate);
     }
 
     public Proposal create(String buyerUuid, String supplierUuid, String offerUuid, double proposalValue) {
         final Proposal proposal = new Proposal(generateUuid(), buyerUuid, supplierUuid, offerUuid, proposalValue,
                 ProposalStatus.open);
+
+        sendNotification(supplierUuid, "Você recebeu uma nova proposta");
 
         return jsonManager.insert(Proposal.class, jsonManager.toJsonNode(proposal));
     }
@@ -31,6 +47,7 @@ public class ProposalService extends BaseService {
         jsonManager.update(Proposal.class, p -> {
             return p.getProposalUuid().equals(proposalUuid);
         }, u -> {
+            sendNotification(u.getBuyerUuid(), "Sua proposta foi rejeitada");
             u.setStatus(ProposalStatus.rejected);
             return u;
         });
@@ -57,6 +74,7 @@ public class ProposalService extends BaseService {
 
             return offerUuid.equals(proposal.getOfferUuid()) && !p.getProposalUuid().equals(proposal.getProposalUuid());
         }, u -> {
+            sendNotification(u.getBuyerUuid(), "Outra propsta foi aceita para a oferta que você propôs");
             u.setStatus(ProposalStatus.rejected);
             return u;
         });
@@ -79,6 +97,7 @@ public class ProposalService extends BaseService {
         if (proposal == null) {
             return;
         }
+        sendNotification(proposal.getBuyerUuid(), "Sua proposta foi aceita! Compra concluída com sucesso!");
         // Fecha as outras propostas para a mesma oferta
         setProposalsStatusToSameOfferAsRejected(proposal);
         // Atualiza o status da oferta para vendida
