@@ -47,7 +47,7 @@ public class AuthService extends BaseService {
     }
 
     private void sendRegisterNotification(String userUuid) {
-        notificationService.createNotification(userUuid, "Seja bem-vind ao Sunshare! Aqui é onde você encontra suas notificações");
+        notificationService.createNotification(userUuid, "Seja bem-vindo ao Sunshare! Aqui é onde você encontra suas notificações");
     }
 
     public User login(String email, String password) {
