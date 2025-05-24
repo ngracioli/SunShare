@@ -22,6 +22,12 @@ public class LoginMenu {
         ConsoleUtils.printTitle("Login");
         ConsoleUtils.printOption("Digite o e-mail: ");
         String email = scanner.nextLine();
+        if (!isValidEmail(email)) {
+            ConsoleUtils.printError("E-mail inválido.");
+            ConsoleUtils.timerConsole(2000);
+            new EntryMenu(scanner, authService);
+            return;
+        }
         ConsoleUtils.printOption("Digite a senha: ");
         String password = scanner.nextLine();
 
@@ -38,5 +44,9 @@ public class LoginMenu {
         ConsoleUtils.timerConsole(2000);
         exit = true;
         new MainMenu(scanner, user);
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     }
 }
