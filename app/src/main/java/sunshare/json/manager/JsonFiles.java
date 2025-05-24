@@ -1,9 +1,31 @@
 package sunshare.json.manager;
 
-public class JsonFiles {
-    static private final String path = System.getProperty("user.dir");
-    static final public String users = path + "/database/users.json";
-    static final public String offers = path + "/database/offers.json";
-    static final public String proposals = path + "/database/proposals.json";
-    static final public String notifications = path + "/database/notifications.json";
+import java.io.File;
+import java.nio.file.Path;
+
+public enum JsonFiles {
+    users("users.json"),
+    offers("offers.json"),
+    proposals("proposals.json"),
+    notifications("notifications.json");
+
+    private final String fileName;
+    private Path fullPath;
+
+   JsonFiles(String fileName) {
+        this.fileName = fileName;
+        this.fullPath = JsonInitializer.databasePath.resolve(fileName);
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public Path getFullPath() {
+        return JsonInitializer.databasePath.resolve(fileName);
+    }
+
+    public File getFile() {
+        return getFullPath().toFile();
+    }
 }
