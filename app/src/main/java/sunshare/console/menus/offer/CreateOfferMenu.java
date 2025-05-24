@@ -38,6 +38,23 @@ public class CreateOfferMenu {
         return value;
     }
 
+    private int readZeroOrOne(Scanner scanner, String prompt, String errorMsg) {
+        int value;
+        do {
+            ConsoleUtils.printOption(prompt);
+            while (!scanner.hasNextInt()) {
+                ConsoleUtils.printError(errorMsg);
+                scanner.next();
+            }
+            value = scanner.nextInt();
+            if (value != 0 && value != 1) {
+                ConsoleUtils.printError(errorMsg);
+            }
+        } while (value != 0 && value != 1);
+        scanner.nextLine();
+        return value;
+    }
+
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("Criar Oferta");
@@ -50,8 +67,8 @@ public class CreateOfferMenu {
             return;
         }
         ConsoleUtils.clearConsole();
-        int metricOption = InputUtils.readIntOption(scanner, "Escolha a unidade de medida: 0 - kW ou 1 - MW",
-                "Digite 0 para kW ou 1 para MW.", 0, 1);
+        int metricOption = readZeroOrOne(scanner, "Escolha a unidade de medida: 0 - kW ou 1 - MW",
+                "Digite 0 para kW ou 1 para MW.");
         double quantity = readPositiveDouble(scanner, "Digite a quantidade de energia: ",
                 "Quantidade deve ser um número maior que zero.");
         double amount = readPositiveDouble(scanner, "Digite o valor da oferta: ",
