@@ -1,6 +1,5 @@
 plugins {
     application
-    java
 }
 
 repositories {
@@ -17,12 +16,21 @@ dependencies {
     implementation("org.fusesource.jansi:jansi:2.4.1")
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+application {
+    mainClass.set("sunshare.app.App")
+    //    mainClass = "sunshare.app.App"
+
 }
 
-application {
-    mainClass = "sunshare.app.App"
+tasks.register<Jar>("fatJar") {
+    archiveBaseName.set("sunshare-app-fat")
+    manifest {
+        attributes["Main-Class"] = "sunshare.app.App"
+    }
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith(".jar") }.map { zipTree(it) }
+    })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
