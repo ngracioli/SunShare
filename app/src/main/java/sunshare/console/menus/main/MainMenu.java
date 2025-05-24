@@ -5,6 +5,7 @@ import java.util.Scanner;
 import sunshare.console.ascii.LogoPrinter;
 import sunshare.console.menus.offer.CreateOfferMenu;
 import sunshare.console.menus.offer.OfferMenu;
+import sunshare.console.menus.offer.OfferType;
 import sunshare.console.menus.profile.ProfileMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.entities.user.User;
@@ -40,6 +41,10 @@ public class MainMenu {
                 new ProfileMenu(scanner, user);
                 break;
             case 2:
+                if (user.isSupplier()) {
+                    new OfferType(scanner, user);
+                    break;
+                }
                 new OfferMenu(scanner, user);
                 break;
             case 3:
