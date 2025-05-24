@@ -12,10 +12,12 @@ import sunshare.json.manager.JsonFiles;
 
 public class OfferService extends BaseService {
     private final JsonManager proposalJsonManager;
+    private final NotificationService notificationService;
 
     public OfferService() {
         super(JsonFiles.offers);
-        proposalJsonManager = new JsonManager(JsonFiles.proposals);
+        notificationService = new NotificationService();
+        proposalJsonManager = new JsonManager(JsonFiles.proposals.getFile());
     }
 
     public Offer getByUuid(String uuid) {
@@ -50,6 +52,9 @@ public class OfferService extends BaseService {
         });
 
         proposalJsonManager.delete(Proposal.class, p -> {
+            notificationService.createNotification(
+                p.getBuyerUuid(),
+                "A oferta para a qual você fez uma proposta foi cancelada");
             return p.getOfferUuid().equals(uuid);
         });
     }
