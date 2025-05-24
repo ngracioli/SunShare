@@ -2,6 +2,7 @@ package sunshare.json.manager;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class JsonManager {
     public final ObjectMapper objectMapper;
     private final File jsonFile;
 
-    public JsonManager(final String file) {
-        jsonFile = new File(file);
+    public JsonManager(final File file) {
+        this.jsonFile = file;
         objectMapper = new ObjectMapper();
     }
 
