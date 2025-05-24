@@ -30,21 +30,16 @@ public class ReceivedProposals {
         UserService userService = new UserService();
         ArrayList<Proposal> proposals = proposalService.getAllBySupplierUuid(user.getUuid());
 
-        ArrayList<Proposal> pendingProposals = new ArrayList<>();
-        for (Proposal proposal : proposals) {
-            if (proposal.getStatus() == ProposalStatus.open) {
-                pendingProposals.add(proposal);
-            }
-        }
+        proposals.removeIf(proposal -> proposal.getStatus() != ProposalStatus.open);
 
         ConsoleUtils.clearConsole();
         ConsoleUtils.printTitle("-- Propostas Recebidas --");
         ConsoleUtils.printExit("0. Voltar\n");
-        if (pendingProposals.isEmpty()) {
+        if (proposals.isEmpty()) {
             ConsoleUtils.printError("Nenhuma proposta encontrada.");
         } else {
-            for (int i = 0; i < pendingProposals.size(); i++) {
-                Proposal proposal = pendingProposals.get(i);
+            for (int i = 0; i < proposals.size(); i++) {
+                Proposal proposal = proposals.get(i);
                 Offer offer = offerService.getByUuid(proposal.getOfferUuid());
                 User buyer = userService.getByUuid(proposal.getBuyerUuid());
                 ConsoleUtils.printSuccess(String.format("%d. Proposta", i + 1));
@@ -63,14 +58,14 @@ public class ReceivedProposals {
 
         }
         int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0 ou o número de uma proposta.",
-                InputUtils.range(0, pendingProposals.size()));
+                InputUtils.range(0, proposals.size()));
         switch (option) {
             case 0:
                 exit = true;
                 break;
             default:
-                if (option > 0 && option <= pendingProposals.size()) {
-                    var proposal = pendingProposals.get(option - 1);
+                if (option > 0 && option <= proposals.size()) {
+                    var proposal = proposals.get(option - 1);
                     ConsoleUtils.printSuccess("Proposta selecionada!");
                     ConsoleUtils.printOption("Deseja aceitar ou recusar a proposta? (aceitar/recusar)");
                     String response = scanner.nextLine();
