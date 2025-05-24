@@ -35,10 +35,10 @@ public class RegisterMenu {
         do {
             ConsoleUtils.printOption("Digite o e-mail: ");
             email = scanner.nextLine();
-            if (!isValidEmail(email)) {
-                ConsoleUtils.printError("E-mail inválido.");
+            if (!isValidEmail(email) || authService.getUserByEmail(email) != null) {
+                ConsoleUtils.printError("E-mail inválido ou já existente.");
             }
-        } while (!isValidEmail(email));
+        } while (!isValidEmail(email) || authService.getUserByEmail(email) != null);
         String password = readNonEmptyString(scanner, "Digite a senha: ", "Senha não pode ser vazia.");
         Address address = readAddress(scanner);
         Document document = readDocument(scanner);
