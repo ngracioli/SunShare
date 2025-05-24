@@ -11,12 +11,29 @@ import sunshare.entities.user.User;
 import sunshare.json.manager.JsonFiles;
 
 public class AuthService extends BaseService {
+    private final NotificationService notificationService;
+
     public AuthService() {
         super(JsonFiles.users);
+        notificationService = new NotificationService();
+    }
+
+    public User getUserByEmail(String email) {
+        final var result = jsonManager.select(User.class, m -> {
+            return m.getEmail().equals(email);
+        });
+
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return result.getFirst();
     }
 
     public Buyer registerBuyer(String name, String email, String password, Address address, Document document) {
         final User user = new Buyer(generateUuid(), name, email, password, address, document);
+
+        sendRegisterNotification(user.getUuid());
 
         return jsonManager.insert(Buyer.class, jsonManager.toJsonNode(user));
     }
@@ -24,7 +41,13 @@ public class AuthService extends BaseService {
     public Supplier registerSupplier(String name, String email, String password, Address address, Document document) {
         final Supplier user = new Supplier(generateUuid(), name, email, password, address, document);
 
+        sendRegisterNotification(user.getUuid());
+
         return jsonManager.insert(Supplier.class, jsonManager.toJsonNode(user));
+    }
+
+    private void sendRegisterNotification(String userUuid) {
+        notificationService.createNotification(userUuid, "Seja bem-vind ao Sunshare! Aqui é onde você encontra suas notificações");
     }
 
     public User login(String email, String password) {
