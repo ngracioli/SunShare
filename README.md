@@ -41,7 +41,7 @@ O SunShare foi criado para solucionar o problema do desperdício de excedentes d
 
 ### Usuários Finais (Release)
 
-1. Baixe o arquivo `sunshare-app-fat.jar` na seção de [Releases](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/releases) deste repositório.
+1. Baixe o arquivo `sunshare-app-fat.jar` na seção de [Releases](https://github.com/ngracioli/SunShare/releases) deste repositório.
 2. Certifique-se de que a pasta `database/` esteja no mesmo diretório do JAR ou copie-a do repositório.
 3. Execute o sistema com o comando:
 
