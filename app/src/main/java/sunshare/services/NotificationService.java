@@ -11,12 +11,20 @@ public class NotificationService extends BaseService {
     }
 
     public void setUserNotificationsAsRead(String userUuid) {
-        // TODO implement
+        jsonManager.delete(Notification.class, m -> {
+            return m.getUserUuid().equals(userUuid);
+        });
     }
 
     public ArrayList<Notification> getNotificationFromUser(String userUuid) {
-        // TODO implement
-        return null;
+        return jsonManager.select(Notification.class, m -> {
+            return m.getUserUuid().equals(userUuid);
+        });
     }
 
+    public void createNotification(String userUuid, String message) {
+        final var notification = new Notification(generateUuid(), userUuid, message);
+
+        jsonManager.insert(Notification.class, jsonManager.toJsonNode(notification));
+    }
 }
