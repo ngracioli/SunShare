@@ -1,5 +1,7 @@
 package sunshare.console.ascii;
 
+import java.io.InputStream;
+
 public class LogoPrinter extends AbstractAsciiPrinter {
     /*
      * Sempre que for trabalhar com resources
@@ -11,8 +13,8 @@ public class LogoPrinter extends AbstractAsciiPrinter {
     private static final String logoPath = "/logo.txt";
 
     @Override
-    protected String getFilePath() {
-        final String path = getClass().getResource(logoPath).getPath();
-        return path;
+    protected InputStream getResourceInputStream() {
+        final InputStream inputStream = getClass().getResourceAsStream(logoPath);
+        return inputStream;
     }
 }

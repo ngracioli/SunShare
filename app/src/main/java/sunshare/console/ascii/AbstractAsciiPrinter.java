@@ -1,8 +1,10 @@
 package sunshare.console.ascii;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
 import sunshare.console.menus.utils.ConsoleUtils;
@@ -27,19 +29,15 @@ public abstract class AbstractAsciiPrinter {
     }
 
     private void print() throws Exception {
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
+        try (InputStream inputStream = getResourceInputStream()) {
+            if (inputStream == null) {
+                throw new IOException("Resource InputStream is null. Resource not found or accessible.");
+            }
 
-        fileReader = new FileReader(getFilePath());
-        bufferedReader = new BufferedReader(fileReader);
-        readAndPrintBuffer(bufferedReader);
-
-        if (fileReader != null) {
-            fileReader.close();
-        }
-
-        if (bufferedReader != null) {
-            bufferedReader.close();
+            try (BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                readAndPrintBuffer(bufferedReader);
+            }
         }
     }
 
@@ -59,7 +57,7 @@ public abstract class AbstractAsciiPrinter {
      *
      * @return
      */
-    protected abstract String getFilePath();
+    protected abstract InputStream getResourceInputStream();
 
     /**
      * Retorna o Consumer que vai imprimir a arte ascii
