@@ -18,8 +18,6 @@ dependencies {
 
 application {
     mainClass.set("sunshare.app.App")
-    //    mainClass = "sunshare.app.App"
-
 }
 
 tasks.register<Jar>("fatJar") {
