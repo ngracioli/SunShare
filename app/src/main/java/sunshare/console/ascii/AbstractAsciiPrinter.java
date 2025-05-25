@@ -26,12 +26,7 @@ public abstract class AbstractAsciiPrinter {
         }
     }
 
-    /**
-     * Exite a arte ascii dentro do arquivo
-     *
-     * @throws Exception
-     */
-    protected void print() throws Exception {
+    private void print() throws Exception {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
 
@@ -50,9 +45,12 @@ public abstract class AbstractAsciiPrinter {
 
     private void readAndPrintBuffer(BufferedReader br) throws IOException {
         String line;
-        Consumer<String> printer = getPrinter();
+        int row = 0;
+        Consumer<String> printer;
         while ((line = br.readLine()) != null) {
+            printer = getPrinter(row);
             printer.accept(line);
+            row++;
         }
     }
 
@@ -68,7 +66,7 @@ public abstract class AbstractAsciiPrinter {
      *
      * @return
      */
-    protected Consumer<String> getPrinter() {
+    protected Consumer<String> getPrinter(int row) {
         return ConsoleUtils::printTitle;
     }
 
