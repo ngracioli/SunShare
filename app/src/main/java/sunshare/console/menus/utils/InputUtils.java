@@ -6,8 +6,8 @@ public class InputUtils {
     public static int readIntOption(Scanner scanner, String prompt, String errorMsg, int... validOptions) {
         int value;
         boolean valid;
+        System.out.println(prompt);
         do {
-            System.out.println(prompt);
             while (!scanner.hasNextInt()) {
                 ConsoleUtils.printError(errorMsg);
                 scanner.next();
