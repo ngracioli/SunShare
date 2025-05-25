@@ -2,9 +2,6 @@ package sunshare.console.menus.profile;
 
 import java.util.Scanner;
 
-import javax.management.Notification;
-
-import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.profile.infos.InfoMenu;
 import sunshare.console.menus.profile.notifications.UserNotification;
 import sunshare.console.menus.profile.purchases.UserPurchases;

@@ -1,8 +1,6 @@
 package sunshare.console.menus.offer.user;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import sunshare.console.menus.utils.ConsoleUtils;
@@ -11,7 +9,6 @@ import sunshare.entities.offer.Offer;
 import sunshare.entities.offer.OfferStatus;
 import sunshare.entities.user.User;
 import sunshare.services.OfferService;
-import sunshare.services.UserService;
 
 public class UserOffers {
     private boolean exit = false;
@@ -24,7 +21,6 @@ public class UserOffers {
 
     public void showMenu(Scanner scanner, User user) {
         OfferService offerService = new OfferService();
-        UserService userService = new UserService();
 
         ArrayList<Offer> offers = offerService.getAllFromUser(user.getUuid());
         offers.removeIf(offer -> offer.getStatus() != OfferStatus.open);

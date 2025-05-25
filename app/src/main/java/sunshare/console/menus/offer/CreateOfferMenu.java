@@ -1,14 +1,10 @@
 package sunshare.console.menus.offer;
 
-import java.io.Console;
 import java.util.Scanner;
 
-import sunshare.console.menus.profile.ProfileMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
-import sunshare.console.menus.utils.InputUtils;
 import sunshare.entities.energy.Energy;
 import sunshare.entities.energy.EnergyMetricUnits;
-import sunshare.entities.offer.Offer;
 import sunshare.entities.user.User;
 import sunshare.services.OfferService;
 
