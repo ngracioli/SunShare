@@ -13,6 +13,18 @@ public class App {
         final AuthService authService = new AuthService();
         final Scanner scanner = new Scanner(System.in);
 
-        new EntryMenu(scanner, authService);
+        try {
+            new EntryMenu(scanner, authService);
+        } catch (Exception e) {
+            /**
+             * Catch genérico para o app para lidar com interrupções de execução
+             * tipo apertar Ctrl+C ou Ctrl+D
+             */
+            if (scanner.hasNext()) {
+                System.err.println("Ocorreu um erro inesperado: " + e.getMessage());
+            }
+        } finally {
+            scanner.close();
+        }
     }
 }
