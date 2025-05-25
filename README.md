@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/banner.svg" alt="SunShare Banner"/>
+</p>
+
 # SunShare
 
 SunShare é uma plataforma digital com interface em linha de comando (CLI) para negociação direta de energia renovável entre produtores e consumidores, promovendo eficiência, transparência e sustentabilidade no mercado energético brasileiro.
