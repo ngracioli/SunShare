@@ -3,6 +3,7 @@ package sunshare.console.menus.authentication;
 import java.util.Scanner;
 import sunshare.console.menus.main.MainMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.console.menus.utils.InputUtils;
 import sunshare.entities.address.Address;
 import sunshare.entities.document.Document;
 import sunshare.entities.document.DocumentTypes;
@@ -70,13 +71,8 @@ public class RegisterMenu {
         Document document = readDocument(scanner);
         ConsoleUtils.printOption("(0) Comprador ou (1) Vendedor? : ");
 
-        int userType = scanner.nextInt();
+        int userType = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0 ou 1.", 0, 1);
         final User user;
-
-        while (userType != 0 && userType != 1) {
-            ConsoleUtils.printError("Opção inválida. Tente novamente.");
-            userType = scanner.nextInt();
-        }
 
         if (userType == 1) {
             user = authService.registerSupplier(name, email, password, address, document);
@@ -119,20 +115,16 @@ public class RegisterMenu {
     }
 
     private Document readDocument(Scanner scanner) {
-        int option;
-        do {
-            ConsoleUtils.printOption("(0) CPF ou (1) CNPJ? : ");
-            option = scanner.nextInt();
-            if (option != 0 && option != 1) {
-                ConsoleUtils.printError("Opção inválida. Tente novamente.");
-            }
-        } while (option != 0 && option != 1);
-        scanner.nextLine();
+        ConsoleUtils.printOption("(0) CPF ou (1) CNPJ? : ");
+        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite 0 ou 1.", 0, 1);
+
         final DocumentTypes documentType = DocumentTypes.values()[option];
         String document;
+
         do {
             ConsoleUtils.printOption("Digite seu " + documentType.type + ": ");
             document = scanner.nextLine();
+
             if (option == 0) {
                 document = formatCpf(document);
                 if (!isValidCPF(document)) {
@@ -145,6 +137,7 @@ public class RegisterMenu {
                 }
             }
         } while ((option == 0 && !isValidCPF(document)) || (option == 1 && !isValidCNPJ(document)));
+
         return new Document(documentType, document);
     }
 }
