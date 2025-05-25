@@ -12,18 +12,23 @@ public class JsonInitializer {
             createDatabaseDirectory();
             createJsonFiles();
         } catch (IOException e) {
-
+            System.err.println("Erro ao inicializar o banco de dados: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Erro inesperado: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private static void createDatabaseDirectory() throws IOException{
+    private static void createDatabaseDirectory() throws IOException {
         if (!Files.exists(databasePath)) {
             Files.createDirectories(databasePath);
         }
     }
 
     private static void createJsonFiles() throws IOException {
-        for (JsonFiles file : JsonFiles.values()) {
+        final JsonFiles files[] = JsonFiles.values();
+        for (JsonFiles file : files) {
             Path filePath = file.getFullPath();
 
             if (!Files.exists(filePath)) {
