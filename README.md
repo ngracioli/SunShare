@@ -46,24 +46,22 @@ O SunShare foi criado para solucionar o problema do desperdício de excedentes d
 ### Usuários Finais (Release)
 
 1. Baixe o arquivo `sunshare-app-fat.jar` na seção de [Releases](https://github.com/ngracioli/SunShare/releases) deste repositório.
-2. Certifique-se de que a pasta `database/` esteja no mesmo diretório do JAR ou copie-a do repositório.
-3. Execute o sistema com o comando:
+2. Execute o sistema com o comando:
 
     ```sh
     java -jar sunshare-app-fat.jar
     ```
 
-4. Siga as instruções do menu interativo no terminal.
+3. Siga as instruções do menu interativo no terminal.
 
-> Todos os dados são salvos na pasta `database/`.
+> Todos os dados são salvos na pasta `database/`. Que é criado no diretório onde o aplicativo foi incializado
 
 ### Desenvolvedores
 
 1. Clone o repositório:
 
     ```sh
-    git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-    cd SunShare/app
+    git clone https://github.com/ngracioli/SunShare.git
     ```
 
 2. Gere o JAR executável (fat JAR):
@@ -75,14 +73,15 @@ O SunShare foi criado para solucionar o problema do desperdício de excedentes d
     O arquivo será criado em `app/build/libs/sunshare-app-fat.jar`.
 
 3. Para rodar em modo desenvolvimento, utilize:
-
-    ```sh
-    ./gradlew run
-    ```
-
-    ou
-
     ```sh
     ./gradlew installDist
+    ```
+    Windows
+    ```sh
+    ./app/build/install/app/bin/app.bat
+    ```
+    Linux/Mac
+    ```sh
     ./app/build/install/app/bin/app
     ```
+
