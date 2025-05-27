@@ -18,19 +18,20 @@ public class CreateOfferMenu {
     }
 
     private double readPositiveDouble(Scanner scanner, String prompt, String errorMsg) {
-        double value;
+        double value = -1;
         do {
             ConsoleUtils.printOption(prompt);
-            while (!scanner.hasNextDouble()) {
-                ConsoleUtils.printError(errorMsg);
-                scanner.next();
-            }
-            value = scanner.nextDouble();
-            if (value <= 0) {
-                ConsoleUtils.printError(errorMsg);
+            String input = scanner.nextLine();
+            try {
+                value = Double.parseDouble(input);
+                if (value <= 0) {
+                    ConsoleUtils.printError(errorMsg);
+                }
+            } catch (NumberFormatException e) {
+                ConsoleUtils.printError("Digite apenas números válidos.");
+                value = -1;
             }
         } while (value <= 0);
-        scanner.nextLine();
         return value;
     }
 

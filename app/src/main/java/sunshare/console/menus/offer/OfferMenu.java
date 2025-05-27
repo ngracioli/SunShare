@@ -71,12 +71,21 @@ public class OfferMenu {
                     ConsoleUtils.printOption("Digite o valor da proposta: ");
                     double minValue = offer.getEnergy().getAmount() * 0.75;
                     ConsoleUtils.printSuccess("Valor mínimo: R$ " + String.format("%.2f", minValue));
-                    double proposalValue = scanner.nextDouble();
-                    if (proposalValue < minValue) {
-                        ConsoleUtils.printError("Valor da proposta abaixo do mínimo.");
-                        ConsoleUtils.timerConsole(2000);
-                        return;
-                    }
+                    double proposalValue = -1;
+                    do {
+                        String input = scanner.nextLine();
+                        try {
+                            proposalValue = Double.parseDouble(input);
+                            if (proposalValue < minValue) {
+                                ConsoleUtils.printError("Valor da proposta abaixo do mínimo.");
+                                ConsoleUtils.timerConsole(2000);
+                                proposalValue = -1;
+                            }
+                        } catch (NumberFormatException e) {
+                            ConsoleUtils.printError("Digite apenas números válidos.");
+                            proposalValue = -1;
+                        }
+                    } while (proposalValue < minValue);
                     ProposalService proposalService = new ProposalService();
                     var proposal = proposalService.create(user.getUuid(), offer.getSupplierUuid(), offer.getUuid(),
                             proposalValue);
