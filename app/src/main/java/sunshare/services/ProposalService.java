@@ -11,16 +11,19 @@ import sunshare.entities.offer.Offer;
 import sunshare.entities.offer.OfferStatus;
 import sunshare.entities.proposal.Proposal;
 import sunshare.entities.proposal.ProposalStatus;
+import sunshare.entities.user.User;
 import sunshare.json.manager.JsonFiles;
 import sunshare.json.manager.JsonManager;
 
 public class ProposalService extends BaseService {
     private final JsonManager offerJsonManager;
+    private final JsonManager userJsonManager;
     private final NotificationService notificationService;
 
     public ProposalService() {
         super(JsonFiles.proposals);
         offerJsonManager = new JsonManager(JsonFiles.offers.getFile());
+        userJsonManager = new JsonManager(JsonFiles.users.getFile());
         notificationService = new NotificationService();
     }
 
@@ -91,6 +94,24 @@ public class ProposalService extends BaseService {
         });
     }
 
+    private void incrementBuyerAndSupplierRank(String buyerUuid, String supplierUuid) {
+        // Comprador
+        userJsonManager.update(User.class, m -> {
+            return m.getUuid().equals(buyerUuid);
+        }, u -> {
+            u.setTotalPurchases(u.getTotalPurchases() + 1);
+            return u;
+        });
+
+        // Vendedor
+        userJsonManager.update(User.class, m -> {
+            return m.getUuid().equals(buyerUuid);
+        }, u -> {
+            u.setTotalSales(u.getTotalSales());
+            return u;
+        });
+    }
+
     public void accept(String proposalUuid) {
         // Define a proposta com o status de aceita
         final Proposal proposal = setProposalStatusToAccepted(proposalUuid);
@@ -102,6 +123,8 @@ public class ProposalService extends BaseService {
         setProposalsStatusToSameOfferAsRejected(proposal);
         // Atualiza o status da oferta para vendida
         updateOfferStatusToSoldByProposal(proposal);
+        // Incrementa 1 no rank de vendas do fornecedor e vendedor
+        incrementBuyerAndSupplierRank(proposal.getBuyerUuid(), proposal.getSupplierUuid());
     }
 
     public Proposal getByUuid(String uuid) {
