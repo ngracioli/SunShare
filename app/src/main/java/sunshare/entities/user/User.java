@@ -12,6 +12,8 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private int totalSales;
+    private int totalPurchases;
     private boolean isSupplier;
     private Address address;
     private Document document;
@@ -22,6 +24,8 @@ public class User {
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
+            @JsonProperty("totalSales") int totalSales,
+            @JsonProperty("totalPurchases") int totalPurchases,
             @JsonProperty("isSupplier") boolean isSupplier,
             @JsonProperty("address") Address address,
             @JsonProperty("document") Document document) {
@@ -29,9 +33,25 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.totalSales = totalSales;
+        this.totalPurchases = totalPurchases;
         this.isSupplier = isSupplier;
         this.address = address;
         this.document = document;
+    }
+
+    public int getTotalSales() {
+        return totalSales;
+    }
+    public void setTotalSales(int totalSales) {
+        this.totalSales = totalSales;
+    }
+    public int getTotalPurchases() {
+        return totalPurchases;
+    }
+
+    public void setTotalPurchases(int totalPurchases) {
+        this.totalPurchases = totalPurchases;
     }
 
     public String getUuid() {
@@ -97,6 +117,8 @@ public class User {
                 this.name,
                 this.email,
                 this.password,
+                this.totalSales,
+                this.totalPurchases,
                 this.address,
                 this.document);
     }
@@ -108,6 +130,8 @@ public class User {
                 this.name,
                 this.email,
                 this.password,
+                this.totalSales,
+                this.totalPurchases,
                 this.address,
                 this.document);
     }
