@@ -68,8 +68,10 @@ public class OfferMenu {
                         return;
                     }
                     ConsoleUtils.clearConsole();
-                    ConsoleUtils.printOption("Digite o valor da proposta: ");
                     double minValue = offer.getEnergy().getAmount() * 0.75;
+                    ConsoleUtils.printOption("Digite o valor da proposta: ");
+                    ConsoleUtils
+                            .printSuccess("Valor original: R$ " + String.format("%.2f", offer.getEnergy().getAmount()));
                     ConsoleUtils.printSuccess("Valor mínimo: R$ " + String.format("%.2f", minValue));
                     double proposalValue = -1;
                     do {
