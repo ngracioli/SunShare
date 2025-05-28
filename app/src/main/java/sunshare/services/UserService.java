@@ -22,6 +22,14 @@ public class UserService extends BaseService {
         return result.getFirst();
     }
 
+    public ArrayList<User> getAllSuppliers() {
+        return jsonManager.select(User.class, m -> m.isSupplier());
+    }
+
+    public ArrayList<User> getAllBuyers() {
+        return jsonManager.select(User.class, m -> !m.isSupplier());
+    }
+
     public void delete(String uuid) {
         jsonManager.delete(User.class, user -> {
             return user.getUuid().equals(uuid);
