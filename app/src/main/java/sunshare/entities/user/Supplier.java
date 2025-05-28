@@ -13,8 +13,10 @@ public class Supplier extends User {
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
+            @JsonProperty("totalSales") int totalSales,
+            @JsonProperty("totalPurchases") int totalPurchases,
             @JsonProperty("address") Address address,
             @JsonProperty("document") Document document) {
-        super(uuid, name, email, password, true, address, document);
+        super(uuid, name, email, password, totalSales, totalPurchases, true, address, document);
     };
 }
