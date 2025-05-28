@@ -40,6 +40,11 @@ public class Address {
     }
 
     public void setState(String state) {
+        if (state == null || state.isEmpty()) {
+            this.state = "Indefinido";
+            return;
+        }
+
         this.state = state;
     }
 
@@ -48,6 +53,10 @@ public class Address {
     }
 
     public void setCity(String city) {
+        if (city == null || city.isEmpty()) {
+            this.city = "Indefinido";
+            return;
+        }
         this.city = city;
     }
 
