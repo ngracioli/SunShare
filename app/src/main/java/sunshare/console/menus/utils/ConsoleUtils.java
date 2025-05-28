@@ -36,6 +36,18 @@ public class ConsoleUtils {
         System.out.println(ansi().fgRgb(0, 204, 0).bold().a(message).reset());
     }
 
+    public static void printTop(int place, String message) {
+        if (place == 1) {
+            System.out.println(ansi().fgRgb(40, 184, 57).bold().a(message).reset());
+        } else if (place == 2) {
+            System.out.println(ansi().fgRgb(94, 196, 164).bold().a(message).reset());
+        } else if (place == 3) {
+            System.out.println(ansi().fgRgb(136, 173, 191).bold().a(message).reset());
+        } else {
+            System.out.println(ansi().fgRgb(255, 255, 255).a(message).reset());
+        }
+    }
+
     public static void printExit(String message) {
         printError(message);
     }
