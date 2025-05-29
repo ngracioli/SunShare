@@ -7,7 +7,9 @@ import sunshare.console.menus.offer.CreateOfferMenu;
 import sunshare.console.menus.offer.OfferMenu;
 import sunshare.console.menus.offer.OfferType;
 import sunshare.console.menus.profile.ProfileMenu;
+import sunshare.console.menus.profile.ranking.RankingMenu;
 import sunshare.console.menus.utils.ConsoleUtils;
+import sunshare.console.menus.utils.InputUtils;
 import sunshare.entities.user.User;
 
 public class MainMenu {
@@ -26,12 +28,13 @@ public class MainMenu {
         ConsoleUtils.printExit("0. Sair");
         ConsoleUtils.printOption("1. Perfil");
         ConsoleUtils.printOption("2. Anuncios");
+        ConsoleUtils.printOption("3. Ranking");
         if (user.isSupplier()) {
-            ConsoleUtils.printOption("3. Criar Oferta");
+            ConsoleUtils.printOption("4. Criar Oferta");
         }
         System.out.print("Escolha uma opção: ");
-        int option = scanner.nextInt();
-        scanner.nextLine();
+        int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite uma opção válida.", 0, 1, 2, 3,
+                4);
 
         switch (option) {
             case 0:
@@ -48,12 +51,15 @@ public class MainMenu {
                 new OfferMenu(scanner, user);
                 break;
             case 3:
+                new RankingMenu(scanner, user);
+                break;
+            case 4:
                 if (user.isSupplier()) {
                     new CreateOfferMenu(scanner, user);
                     break;
                 }
             default:
-                ConsoleUtils.printError("Opção inválida.");
+                ConsoleUtils.printError("Digite uma opção válida.");
                 ConsoleUtils.timerConsole(2000);
                 break;
         }
