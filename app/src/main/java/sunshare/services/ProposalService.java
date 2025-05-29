@@ -105,7 +105,7 @@ public class ProposalService extends BaseService {
 
         // Vendedor
         userJsonManager.update(User.class, m -> {
-            return m.getUuid().equals(buyerUuid);
+            return m.getUuid().equals(supplierUuid);
         }, u -> {
             u.setTotalSales(u.getTotalSales() + 1);
             return u;
