@@ -28,6 +28,7 @@ jobs:
 
       - name: Upload fat JAR as a release asset
         uses: softprops/action-gh-release@v2
+        
         with:
           files: build/libs/sunshare-app-fat.jar
         env:
