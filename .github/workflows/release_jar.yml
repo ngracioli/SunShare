@@ -1,35 +1,133 @@
-name: Build and Release Fat JAR
+# Name of your workflow, displayed in the GitHub Actions tab
+name: Java CI/CD with Gradle and Semantic Version Release
 
+# Defines when this workflow runs
 on:
   push:
-    branches: ["main"]
-    tags:
-      - 'v1.0.0'
+    # This workflow will run whenever there's a push to the 'main' branch
+    branches:
+      - main
 
+# Define the jobs that make up this workflow
 jobs:
-  build:
+  # Job 1: Builds the fat JAR
+  build_fatjar:
+    # The type of runner to use for this job
     runs-on: ubuntu-latest
 
+    # Steps involved in the build_fatjar job
     steps:
-      - name: Checkout repository
+      # Step 1: Checkout the repository code
+      # This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      # Step 2: Set up Java Development Kit (JDK)
+      # This action sets up a Java environment for your workflow.
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          java-version: '17' # Specify the Java version you want to use
+          distribution: 'temurin' # Choose a Java distribution (e.g., Temurin, AdoptOpenJDK)
 
-      - name: Grant execute permissions to gradlew
-        run: chmod +x gradlew
-
-      - name: Build fat JAR
-        run: ./gradlew fatJar
-
-      - name: Upload fat JAR as a release asset
-        uses: softprops/action-gh-release@v2
-        
+      # Step 3: Set up Gradle
+      # This action sets up Gradle and caches dependencies for faster builds.
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
         with:
-          files: build/libs/sunshare-app-fat.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use the Gradle wrapper script to execute commands
+          arguments: fatJar # Execute the 'fatJar' task defined in your build.gradle.kts
+
+      # Step 4: Upload the built fat JAR as an artifact
+      # This action uploads artifacts from your workflow run, allowing them to be downloaded by other jobs or later.
+      - name: Upload fat JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sunshare-fatjar # The name of the artifact
+          path: build/libs/sunshare-app-fat-*.jar # The path to your fat JAR. Using a wildcard for the version.
+          retention-days: 5 # How long to retain the artifact (optional)
+
+  # Job 2: Deploys a GitHub Release
+  deploy_release:
+    # This job depends on the successful completion of the 'build_fatjar' job.
+    # It will only run if 'build_fatjar' completes without errors.
+    needs: build_fatjar
+    runs-on: ubuntu-latest
+
+    # Permissions required for this job.
+    # 'contents: write' is necessary to create tags and releases.
+    permissions:
+      contents: write
+
+    # Steps involved in the deploy_release job
+    steps:
+      # Step 1: Checkout the repository code again
+      # This is crucial for Git operations (like fetching tags, creating new ones).
+      # 'fetch-depth: 0' is important to fetch all history and tags, which is needed for git describe.
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for all branches and tags
+
+      # Step 2: Download the built fat JAR artifact from the previous job
+      - name: Download fat JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sunshare-fatjar # Must match the 'name' used in upload-artifact
+
+      # Step 3: Generate and push the semantic version tag
+      - name: Generate and push semantic version tag
+        id: create_tag # Assign an ID to this step to access its outputs
+        run: |
+          # Find the latest semantic version tag (e.g., v1.2.3)
+          # --abbrev=0 ensures we get the full tag name, not a commit hash
+          # --match "v[0-9]*.[0-9]*.[0-9]*" filters for tags that follow the vX.Y.Z pattern
+          # If no such tag exists, default to v0.0.0 to start the sequence
+          LATEST_TAG=$(git describe --tags --match "v[0-9]*.[0-9]*.[0-9]*" --abbrev=0 2>/dev/null || echo "v0.0.0")
+
+          echo "Latest found tag: ${LATEST_TAG}"
+
+          # Extract major, minor, and patch numbers from the latest tag
+          # 'sed 's/^v//'' removes the 'v' prefix
+          # 'tr '.' ' '' replaces dots with spaces for easy reading into shell variables
+          VERSION_PARTS=$(echo "${LATEST_TAG}" | sed 's/^v//' | tr '.' ' ')
+          read -r MAJOR MINOR PATCH <<< "${VERSION_PARTS}"
+
+          # Increment the patch version for the new tag
+          NEW_PATCH=$((PATCH + 1))
+          NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+
+          echo "Proposed new tag: ${NEW_TAG}"
+
+          # Check if the proposed tag already exists locally or remotely
+          # This prevents errors if the workflow is re-run on the same commit
+          if git rev-parse "${NEW_TAG}" >/dev/null 2>&1; then
+            echo "Tag ${NEW_TAG} already exists. Skipping tag creation and using existing tag."
+            FINAL_TAG="${NEW_TAG}" # Use the existing tag for the release
+          else
+            # Create the Git tag
+            git tag "${NEW_TAG}"
+            echo "Created Git tag: ${NEW_TAG}"
+            # Push the tag to the remote repository
+            git push origin "${NEW_TAG}"
+            echo "Pushed Git tag: ${NEW_TAG}"
+            FINAL_TAG="${NEW_TAG}" # Use the newly created tag for the release
+          fi
+
+          # Set the final tag name as an output of this step
+          # This allows the 'Create GitHub Release' step to use this value.
+          echo "tag_name=${FINAL_TAG}" >> "$GITHUB_OUTPUT"
+
+      # Step 4: Create a GitHub Release
+      # This action creates a new release on GitHub.
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # The tag name for the release, taken from the output of the previous step
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          # The name of the release
+          name: Release ${{ steps.create_tag.outputs.tag_name }}
+          # Generate release notes automatically from commit messages (optional)
+          generate_release_notes: true
+          # Attach the fat JAR as an asset to the release
+          files: sunshare-fatjar/sunshare-app-fat-*.jar # Path to the downloaded artifact
