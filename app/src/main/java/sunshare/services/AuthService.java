@@ -39,7 +39,7 @@ public class AuthService extends BaseService {
     }
 
     public Supplier registerSupplier(String name, String email, String password, Address address, Document document) {
-        final Supplier user = new Supplier(password, name, email, password, 0, 0, address, document);
+        final Supplier user = new Supplier(generateUuid(), name, email, password, 0, 0, address, document);
 
         sendRegisterNotification(user.getUuid());
 
