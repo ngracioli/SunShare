@@ -4,7 +4,7 @@
 
 # SunShare
 
-SunShare é uma plataforma digital com interface em linha de comando (CLI) para negociação direta de energia renovável entre produtores e consumidores, promovendo eficiência, transparência e sustentabilidade no mercado energético brasileiro.
+SunShare é uma plataforma digital com interface em linha de comando (CLI) para negociação direta de energia renovável entre produtores e consumidores, promovendo eficiência, transparência e sustentabilidade no mercado energético brasileiro e mundial.
 
 > Projeto acadêmico interdisciplinar de semestre realizado para a faculdade.
 
