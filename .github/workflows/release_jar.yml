@@ -75,7 +75,7 @@ jobs:
       - name: Download fat JAR artifact
         uses: actions/download-artifact@v4
         with:
-          name: sunshare-fatjar # Must match the 'name' used in upload-artifact
+          name: sunshare-fatjar.jar # Must match the 'name' used in upload-artifact
 
       # Step 3: Generate and push the semantic version tag
       - name: Generate and push semantic version tag
@@ -132,4 +132,4 @@ jobs:
           # Generate release notes automatically from commit messages (optional)
           generate_release_notes: true
           # Attach the fat JAR as an asset to the release
-          files: sunshare-fatjar/sunshare-app-fat-*.jar # Path to the downloaded artifact
+          files: sunshare-fatjar.jar # Path to the downloaded artifact
