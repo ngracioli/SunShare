@@ -1,0 +1,34 @@
+name: Build and Release Fat JAR
+
+on:
+  push:
+    branches: ["main"]
+    tags:
+      - 'v*.*.*'  # Ex: v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'  # ou sua versão necessária
+
+      - name: Grant execute permissions to gradlew
+        run: chmod +x gradlew
+
+      - name: Build fat JAR
+        run: ./gradlew fatJar
+
+      - name: Upload fat JAR as a release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/sunshare-app-fat.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
