@@ -5,7 +5,6 @@ import java.util.Scanner;
 import sunshare.console.menus.profile.infos.InfoMenu;
 import sunshare.console.menus.profile.notifications.UserNotification;
 import sunshare.console.menus.profile.purchases.UserPurchases;
-import sunshare.console.menus.profile.ranking.RankingMenu;
 import sunshare.console.menus.profile.sales.UserSales;
 import sunshare.console.menus.utils.ConsoleUtils;
 import sunshare.console.menus.utils.InputUtils;
@@ -39,9 +38,8 @@ public class ProfileMenu {
         }
         ConsoleUtils.printOption("3. Histórico de compras");
         ConsoleUtils.printOption("4. Propostas");
-        ConsoleUtils.printOption("5. Ranking");
         if (user.isSupplier()) {
-            ConsoleUtils.printOption("6. Vendas efetuadas");
+            ConsoleUtils.printOption("5. Vendas efetuadas");
         }
         int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite uma opção válida.", 0, 1, 2, 3,
                 4, 5);
@@ -66,9 +64,6 @@ public class ProfileMenu {
                 new ProposalMenu(scanner, user);
                 break;
             case 5:
-                new RankingMenu(scanner, user);
-                break;
-            case 6:
                 if (user.isSupplier()) {
                     new UserSales(scanner, user);
                     break;
