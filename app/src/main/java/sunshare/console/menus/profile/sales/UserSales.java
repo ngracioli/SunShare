@@ -37,7 +37,7 @@ public class UserSales {
                 String saleInfo = String.format(
                         "Comprador: %s\n" +
                                 "Produto: %s %s\n" +
-                                "Valor final: R$ %.2f",
+                                "Valor final: R$ %.2f\n",
                         buyer.getName(),
                         offer.getEnergy().getQuantity(),
                         offer.getEnergy().getSymbol(),
