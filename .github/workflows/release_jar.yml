@@ -32,11 +32,13 @@ jobs:
 
       # Step 3: Set up Gradle
       # This action sets up Gradle and caches dependencies for faster builds.
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
-        with:
-          # Use the Gradle wrapper script to execute commands
-          arguments: fatJar # Execute the 'fatJar' task defined in your build.gradle.kts
+      - name: Add permission to gradlew
+        id: gradlew_permission
+        run: chmod +x ./gradlew
+
+      - name: Build fatjar
+        id: build_fatjar
+        run: ./gradlew fatjar
 
       # Step 4: Upload the built fat JAR as an artifact
       # This action uploads artifacts from your workflow run, allowing them to be downloaded by other jobs or later.
@@ -44,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sunshare-fatjar # The name of the artifact
-          path: app/src/build/libs/sunshare-app-fat.jar # The path to your fat JAR. Using a wildcard for the version.
+          path: app/build/libs/sunshare-app-fat.jar # The path to your fat JAR. Using a wildcard for the version.
           retention-days: 5 # How long to retain the artifact (optional)
 
   # Job 2: Deploys a GitHub Release
