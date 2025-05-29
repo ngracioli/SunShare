@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sunshare-fatjar # The name of the artifact
-          path: build/libs/sunshare-app-fat-*.jar # The path to your fat JAR. Using a wildcard for the version.
+          path: build/libs/sunshare-app-fat.jar # The path to your fat JAR. Using a wildcard for the version.
           retention-days: 5 # How long to retain the artifact (optional)
 
   # Job 2: Deploys a GitHub Release
