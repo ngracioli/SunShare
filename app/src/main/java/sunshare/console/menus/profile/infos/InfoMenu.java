@@ -17,6 +17,8 @@ public class InfoMenu {
         ConsoleUtils.printSuccess("Nome: " + user.getName());
         ConsoleUtils.printSuccess("Email: " + user.getEmail());
         ConsoleUtils.printSuccess("Tipo: " + (user.isSupplier() ? "Fornecedor" : "Consumidor"));
+        ConsoleUtils.printSuccess("Compras:" + user.getTotalPurchases());
+        ConsoleUtils.printSuccess("Vendas: " + user.getTotalSales());
         ConsoleUtils.printSuccess("Endereço: " + address.getStreet() + ", " + address.getNeighborhood() + ", "
                 + address.getCity() + ", " + address.getState() + ", " + address.getCep());
         ConsoleUtils.printSuccess("Tipo de documento: " + document.getDocumentType().type);
