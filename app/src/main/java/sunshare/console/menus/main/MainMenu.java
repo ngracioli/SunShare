@@ -32,7 +32,6 @@ public class MainMenu {
         if (user.isSupplier()) {
             ConsoleUtils.printOption("4. Criar Oferta");
         }
-        System.out.print("Escolha uma opção: ");
         int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite uma opção válida.", 0, 1, 2, 3,
                 4);
 
