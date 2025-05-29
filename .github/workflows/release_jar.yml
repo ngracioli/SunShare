@@ -45,8 +45,8 @@ jobs:
       - name: Upload fat JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sunshare-fatjar # The name of the artifact
-          path: app/build/libs/sunshare-app-fat.jar # The path to your fat JAR. Using a wildcard for the version.
+          name: sunshare-fatjar # The name of the artifact (e.g., "my-app-jar")
+          path: app/build/libs/sunshare-app-fat.jar # The path to your fat JAR. Assuming 'app' is your project root.
           retention-days: 5 # How long to retain the artifact (optional)
 
   # Job 2: Deploys a GitHub Release
@@ -75,7 +75,9 @@ jobs:
       - name: Download fat JAR artifact
         uses: actions/download-artifact@v4
         with:
-          name: sunshare-fatjar.jar # Must match the 'name' used in upload-artifact
+          # IMPORTANT: This 'name' MUST exactly match the 'name' used in the 'upload-artifact' step.
+          # It refers to the artifact *bundle*, not the filename itself.
+          name: sunshare-fatjar # Corrected from 'sunshare-fatjar.jar'
 
       # Step 3: Generate and push the semantic version tag
       - name: Generate and push semantic version tag
@@ -132,4 +134,6 @@ jobs:
           # Generate release notes automatically from commit messages (optional)
           generate_release_notes: true
           # Attach the fat JAR as an asset to the release
-          files: sunshare-fatjar.jar # Path to the downloaded artifact
+          # IMPORTANT: The artifact is downloaded into a directory named 'sunshare-fatjar'
+          # so the path must reflect that.
+          files: sunshare-fatjar/sunshare-app-fat.jar # Corrected path
