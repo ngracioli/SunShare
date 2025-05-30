@@ -54,7 +54,7 @@ public class CreateOfferMenu {
 
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
-        ConsoleUtils.printTitle("Criar Oferta");
+        ConsoleUtils.printTitle("-- Criar Oferta --");
         ConsoleUtils.printOption("Deseja criar uma oferta? (s/n)");
         String option = scanner.nextLine();
         if (!option.equalsIgnoreCase("s")) {
