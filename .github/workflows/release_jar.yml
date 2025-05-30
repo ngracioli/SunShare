@@ -119,9 +119,6 @@ jobs:
           # This allows the 'Create GitHub Release' step to use this value.
           echo "tag_name=${FINAL_TAG}" >> "$GITHUB_OUTPUT"
 
-      - name: List contents of artifact directory
-        run: ls -lh sunshare-fatjar/
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
