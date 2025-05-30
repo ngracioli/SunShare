@@ -36,7 +36,7 @@ public class InfoMenu {
         ConsoleUtils.printSuccess("Tipo: " + (user.isSupplier() ? "Fornecedor" : "Consumidor"));
         ConsoleUtils.printSuccess("Compras realizadas: " + user.getTotalPurchases());
         if (user.isSupplier()) {
-            ConsoleUtils.printSuccess("Ofertas abertos: " + quantityOfOffers);
+            ConsoleUtils.printSuccess("Ofertas abertas: " + quantityOfOffers);
             ConsoleUtils.printSuccess("Vendas efetuadas: " + user.getTotalSales());
         }
         ConsoleUtils.printSuccess("Endereço: " + address.getStreet() + ", " + address.getNeighborhood() + ", "
