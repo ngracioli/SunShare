@@ -55,7 +55,7 @@ public class RegisterMenu {
 
     public RegisterMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
-        ConsoleUtils.printTitle("Cadastro de Usuário");
+        ConsoleUtils.printTitle("-- Cadastro de Usuário --");
 
         String name = readNonEmptyString(scanner, "Digite o nome: ", "Nome não pode ser vazio.");
         String email;
