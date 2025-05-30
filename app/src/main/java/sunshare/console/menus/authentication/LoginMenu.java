@@ -19,7 +19,7 @@ public class LoginMenu {
 
     public void showMenu(Scanner scanner, AuthService authService) {
         ConsoleUtils.clearConsole();
-        ConsoleUtils.printTitle("Login");
+        ConsoleUtils.printTitle("-- Login --");
         ConsoleUtils.printOption("Digite o e-mail: ");
         String email = scanner.nextLine();
         if (!isValidEmail(email)) {
