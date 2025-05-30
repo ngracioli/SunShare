@@ -28,7 +28,7 @@ public class ProfileMenu {
         final int notificationCount = notificationService.getQuantityOfNotifications(user.getUuid());
 
         ConsoleUtils.clearConsole();
-        ConsoleUtils.printTitle("Perfil");
+        ConsoleUtils.printTitle("-- Perfil --");
         ConsoleUtils.printExit("0. Voltar");
         ConsoleUtils.printOption("1. Minha informações");
         if (notificationCount > 0) {
@@ -39,7 +39,7 @@ public class ProfileMenu {
         ConsoleUtils.printOption("3. Histórico de compras");
         ConsoleUtils.printOption("4. Propostas");
         if (user.isSupplier()) {
-            ConsoleUtils.printOption("5. Vendas efetuadas");
+            ConsoleUtils.printOption("5. Histórico de vendas");
         }
         int option = InputUtils.readIntOption(scanner, "Escolha uma opção: ", "Digite uma opção válida.", 0, 1, 2, 3,
                 4, 5);
