@@ -119,11 +119,20 @@ jobs:
           # This allows the 'Create GitHub Release' step to use this value.
           echo "tag_name=${FINAL_TAG}" >> "$GITHUB_OUTPUT"
 
+      - name: Changelog
+        uses: Bullrich/generate-release-changelog@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           name: Release ${{ steps.create_tag.outputs.tag_name }}
-          generate_release_notes: true
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
           files: sunshare-app-fat.jar
           
