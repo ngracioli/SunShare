@@ -128,5 +128,5 @@ jobs:
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           name: Release ${{ steps.create_tag.outputs.tag_name }}
           generate_release_notes: true
-          files: sunshare-fatjar/*.jar
+          files: sunshare-app-fat.jar
           
