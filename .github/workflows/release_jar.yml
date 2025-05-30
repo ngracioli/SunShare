@@ -75,13 +75,10 @@ jobs:
       - name: Download fat JAR artifact
         uses: actions/download-artifact@v4
         with:
-          # IMPORTANT: This 'name' MUST exactly match the 'name' used in the 'upload-artifact' step.
-          # It refers to the artifact *bundle*, not the filename itself.
-          name: sunshare-fatjar # Corrected from 'sunshare-fatjar.jar'
+          name: sunshare-fatjar
 
-      # Step 3: Generate and push the semantic version tag
       - name: Generate and push semantic version tag
-        id: create_tag # Assign an ID to this step to access its outputs
+        id: create_tag
         run: |
           # Find the latest semantic version tag (e.g., v1.2.3)
           # --abbrev=0 ensures we get the full tag name, not a commit hash
@@ -122,18 +119,14 @@ jobs:
           # This allows the 'Create GitHub Release' step to use this value.
           echo "tag_name=${FINAL_TAG}" >> "$GITHUB_OUTPUT"
 
-      # Step 4: Create a GitHub Release
-      # This action creates a new release on GitHub.
+      - name: List contents of artifact directory
+        run: ls -lh sunshare-fatjar/
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # The tag name for the release, taken from the output of the previous step
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
-          # The name of the release
           name: Release ${{ steps.create_tag.outputs.tag_name }}
-          # Generate release notes automatically from commit messages (optional)
           generate_release_notes: true
-          # Attach the fat JAR as an asset to the release
-          # IMPORTANT: The artifact is downloaded into a directory named 'sunshare-fatjar'
-          # so the path must reflect that.
-          files: sunshare-fatjar/sunshare-app-fat.jar # Corrected path
+          files: sunshare-fatjar/*.jar
+          
