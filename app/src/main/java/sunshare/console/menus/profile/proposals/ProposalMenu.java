@@ -17,9 +17,9 @@ public class ProposalMenu {
 
     public void showMenu(Scanner scanner, User user) {
         ConsoleUtils.clearConsole();
-        ConsoleUtils.printTitle("Propostas");
+        ConsoleUtils.printTitle("-- Propostas --");
         ConsoleUtils.printExit("0. Voltar");
-        ConsoleUtils.printOption("1. Minhas propostas");
+        ConsoleUtils.printOption("1. Propostas enviadas");
         if (user.isSupplier()) {
             ConsoleUtils.printOption("2. Propostas recebidas");
         }
